@@ -14,17 +14,17 @@ Once installed add the project root folder (this one) via the Unity Hub and wait
 ## Folder structure
 
 Main source code (and other relevant assets such as sounds, models, etc.) can be found in Assets folder. For more detailed explanation look at each subdirectory readme files.
-* [Animations](./Animations/README.md)
-* [Materials](./Materials/README.md)
-* [Models](./Models/README.md)
-* [Music](./Music/README.md)
-* [Prefabs](./Prefabs/README.md)
-* [Scenes](./Scenes/README.md)
-* [Scripts](./Scripts/README.md)
-* [SFX](./SFX/README.md)
-* [Textures](./Textures/README.md)
-* [UI](./UI/README.md)
-* [VFX](./VFX/README.md)
+* [Animations](./Assets/Animations/README.md)
+* [Materials](./Assets/Materials/README.md)
+* [Models](./Assets/Models/README.md)
+* [Music](./Assets/Music/README.md)
+* [Prefabs](./Assets/Prefabs/README.md)
+* [Scenes](./Assets/Scenes/README.md)
+* [Scripts](./Assets/Scripts/README.md)
+* [SFX](./Assets/SFX/README.md)
+* [Textures](./Assets/Textures/README.md)
+* [UI](./Assets/UI/README.md)
+* [VFX](./Assets/VFX/README.md)
 
 ## Release
 
