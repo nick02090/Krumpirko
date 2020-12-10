@@ -7,14 +7,16 @@ public class EnemyController : MonoBehaviour
     NavMeshAgent agent;
     EnemyState currentState;
 
-    public Transform player;
+    // public Transform player;
 
     void Start()
     {
         anim = this.GetComponent<Animator>();
         agent = this.GetComponent<NavMeshAgent>();
 
-        currentState = new StateIdle(this.gameObject, agent, anim, player);
+        GameObject player = GameObject.FindWithTag("Player");
+
+        currentState = new StateIdle(this.gameObject, agent, anim, player.transform);
     }
 
     void Update()
