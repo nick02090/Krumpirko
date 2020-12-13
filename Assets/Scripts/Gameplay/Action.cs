@@ -17,18 +17,23 @@ namespace Gameplay.Actions
         Ketchup
     }
 
+    public enum ActionCostType
+    {
+        [Description("Pommes Capacity")]
+        PommesCapacity,
+        [Description("Pommes Eaten")]
+        PommesEaten
+    }
+
     public interface IAction
     {
         /// <summary>
-        /// Gets cost for this action.
+        /// Gets type of the cost for this action.
+        /// PommesCapacity means that action is calculated based on the number of pommes character has at disposal.
+        /// PommesEaten means that action is calculated based on the number of pommes character has eaten so far in the game.
         /// </summary>
         /// <returns></returns>
-        int GetCost();
-        /// <summary>
-        /// Gets type of this action.
-        /// </summary>
-        /// <returns></returns>
-        ActionType GetType();
+        ActionCostType GetCostType();
         /// <summary>
         /// Activates this action.
         /// </summary>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Gameplay.Ailments;
+using Gameplay.Actions;
 
 namespace Gameplay.Characters
 {
@@ -51,6 +52,31 @@ namespace Gameplay.Characters
         }
 
         public Transform GetTransform()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void SpillHotSauce()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool CanBaitWithHotSauce()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int BaitWithHotSauce()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DisableAction(ActionType actionType)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void EnableAction(ActionType actionType)
         {
             throw new System.NotImplementedException();
         }

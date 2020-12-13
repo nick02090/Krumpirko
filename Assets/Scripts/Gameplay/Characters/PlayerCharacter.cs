@@ -17,6 +17,7 @@ namespace Gameplay.Characters
 
         public GameObject baitPrefab;
         public Transform baitParent;
+        public ActionCosts actionCosts;
 
         /// <summary>
         /// Current status of the player that defines it's various properties
@@ -35,8 +36,9 @@ namespace Gameplay.Characters
             // Initialize member variables
             ailments = new List<Ailment>();
             pommesEater = GetComponent<PommesEater>();
-            // Subscribe to eater state change
+            // Subscribe to eater delegates
             pommesEater.onStateChange += OnEaterStateChange;
+            pommesEater.onDeath += OnEaterDeath;
             // Initialize action mappings
             actionMapping = new Dictionary<ActionType, IAction>()
             {
@@ -48,7 +50,6 @@ namespace Gameplay.Characters
             };
         }
 
-        // Update is called once per frame
         void Update()
         {
             // Update ailments based on their timers
@@ -58,10 +59,9 @@ namespace Gameplay.Characters
         {
             if (actionMapping.TryGetValue(actionType, out IAction action))
             {
-                if (action.GetCost() <= pommesEater.PommesCapacity)
-                {
-                    return true;
-                }
+                int actionCost = actionCosts.GetCost(actionType);
+                ActionCostType actionCostType = action.GetCostType();
+                return pommesEater.HasCapacityFor(actionCost, actionCostType);
             }
             return false;
         }
@@ -71,7 +71,9 @@ namespace Gameplay.Characters
             if (actionMapping.TryGetValue(actionType, out IAction action))
             {
                 // Update eater current pommes capacity
-                pommesEater.PommesCapacity -= action.GetCost();
+                int actionCost = actionCosts.GetCost(actionType);
+                ActionCostType actionCostType = action.GetCostType();
+                pommesEater.ExecuteAction(actionCost, actionCostType);
                 // Execute the action
                 action.Execute(this);
             }
@@ -81,10 +83,22 @@ namespace Gameplay.Characters
             }
         }
 
+        /// <summary>
+        /// Called when eater hasn't eaten anything for a while.
+        /// </summary>
+        private void OnEaterDeath()
+        {
+            // TODO: Update player properties so they math the current eater state.
+            Debug.Log($"Player eater has died.");
+        }
+
+        /// <summary>
+        /// Called when eaters state has change (Eating -> Starving and vice versa)
+        /// </summary>
         private void OnEaterStateChange()
         {
             // TODO: Update player properties so they match the current eater state.
-            Debug.Log($"Eater has changed state to {pommesEater.State.DescriptionAttr()}");
+            Debug.Log($"Player eater has changed state to {pommesEater.State.DescriptionAttr()}.");
         }
 
         public void DisableAllActions()
@@ -110,6 +124,39 @@ namespace Gameplay.Characters
         public Transform GetTransform()
         {
             return transform;
+        }
+
+        public void SpillHotSauce()
+        {
+            pommesEater.SpillHotSauce();
+        }
+
+        public bool CanBaitWithHotSauce()
+        {
+            return pommesEater.HotSaucePommesCapacity > 0;
+        }
+
+        public int BaitWithHotSauce()
+        {
+            // Calculate how many pommes you have with hot sauce on them
+            int numberOfHotSaucePommes = Mathf.Clamp(pommesEater.HotSaucePommesCapacity, 0, 10);
+            // Remove those from the count
+            pommesEater.HotSaucePommesCapacity -= numberOfHotSaucePommes;
+            // TODO: Check with the others from the team if you should keep this or not
+            // Since you lost some from the capacity but you actually used those with hot sauce as a bait
+            // recover the lost pommes in the capacity
+            pommesEater.PommesCapacity += numberOfHotSaucePommes;
+            return numberOfHotSaucePommes;
+        }
+
+        public void DisableAction(ActionType actionType)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void EnableAction(ActionType actionType)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

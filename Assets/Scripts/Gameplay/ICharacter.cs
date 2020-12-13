@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Gameplay.Actions;
+using UnityEngine;
 
 namespace Gameplay.Characters
 {
@@ -10,7 +11,10 @@ namespace Gameplay.Characters
         void DisableAllActions();
         void EnableAllActions();
         Transform GetTransform();
-        // void DisableAction(ActionType actionType);
-        // void EnableAction(ActionType actionType);
+        void SpillHotSauce();
+        bool CanBaitWithHotSauce();
+        int BaitWithHotSauce();
+        void DisableAction(ActionType actionType);
+        void EnableAction(ActionType actionType);
     }
 }

@@ -12,17 +12,13 @@ namespace Gameplay.Actions
         /// </summary>
         public void Execute(ICharacter character)
         {
-            throw new System.NotImplementedException();
+            // Spill hot sauce over characters pommes
+            character.SpillHotSauce();
         }
 
-        public int GetCost()
+        public ActionCostType GetCostType()
         {
-            throw new System.NotImplementedException();
-        }
-
-        ActionType IAction.GetType()
-        {
-            throw new System.NotImplementedException();
+            return ActionCostType.PommesCapacity;
         }
     }
 }

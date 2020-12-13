@@ -2375,9 +2375,11 @@ MonoBehaviour:
   eatingRate: 0
   deathClock: 0
   maxPommesCapacity: 1
-  TimeSinceLastAction: 0
+  eatsHotSauce: 0
+  immuneToHotSauce: 0
   PommesCapacity: 0
   State: 0
+  HotSaucePommesCapacity: 0
 --- !u!114 &1296019613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3126,9 +3128,11 @@ MonoBehaviour:
   eatingRate: 0
   deathClock: 0
   maxPommesCapacity: 1
-  TimeSinceLastAction: 0
+  eatsHotSauce: 0
+  immuneToHotSauce: 0
   PommesCapacity: 0
   State: 0
+  HotSaucePommesCapacity: 0
 --- !u!114 &1446588305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4387,9 +4391,11 @@ MonoBehaviour:
   eatingRate: 1
   deathClock: 10
   maxPommesCapacity: 1
-  TimeSinceLastAction: 0
-  PommesCapacity: 0
+  eatsHotSauce: 0
+  immuneToHotSauce: 0
+  PommesCapacity: 100
   State: 0
+  HotSaucePommesCapacity: 0
 --- !u!114 &2072153158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4406,6 +4412,13 @@ MonoBehaviour:
   baitPrefab: {fileID: 4522254063828869264, guid: a3bc8c142b94b0844b7c5d069520985a,
     type: 3}
   baitParent: {fileID: 309830395}
+  actionCosts:
+    BaitActionCost: 10
+    CoughActionCost: 20
+    GumActionCost: 5
+    HotSauceActionCost: 30
+    KetchupActionCost: 15
+    ActionMultiplier: 1
 --- !u!195 &2072153159
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -14,14 +14,9 @@ namespace Gameplay.Actions
             throw new System.NotImplementedException();
         }
 
-        public int GetCost()
+        public ActionCostType GetCostType()
         {
-            throw new System.NotImplementedException();
-        }
-
-        ActionType IAction.GetType()
-        {
-            throw new System.NotImplementedException();
+            return ActionCostType.PommesEaten;
         }
     }
 }

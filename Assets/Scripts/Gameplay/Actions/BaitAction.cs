@@ -1,4 +1,5 @@
 ﻿using Gameplay.Characters;
+using Gameplay.SceneObjects;
 using UnityEngine;
 
 namespace Gameplay.Actions
@@ -15,13 +16,10 @@ namespace Gameplay.Actions
         /// </summary>
         public Transform BaitParent { get; private set; }
 
-        private readonly int _cost;
-
-        public BaitAction(GameObject baitPrefab, Transform baitParent, int cost = 100)
+        public BaitAction(GameObject baitPrefab, Transform baitParent)
         {
             BaitPrefab = baitPrefab;
             BaitParent = baitParent;
-            _cost = cost;
         }
 
         /// <summary>
@@ -31,6 +29,12 @@ namespace Gameplay.Actions
         /// </summary>
         public void Execute(ICharacter character)
         {
+            // Prepare bait properties
+            if (character.CanBaitWithHotSauce())
+            {
+                PommesBatch pommesBatch = BaitPrefab.GetComponent<PommesBatch>();
+                pommesBatch.HotSauceSize = character.BaitWithHotSauce();
+            }
             // Get player position
             Transform characterTransform = character.GetTransform();
             // Calculate baits position (in front of the player)
@@ -41,15 +45,9 @@ namespace Gameplay.Actions
             bait.transform.SetParent(BaitParent);
         }
 
-        public int GetCost()
+        public ActionCostType GetCostType()
         {
-            // TODO: Redo this so the action cost is read from an outside script (and/or can be changed via editor).
-            return _cost;
-        }
-
-        ActionType IAction.GetType()
-        {
-            return ActionType.Bait;
+            return ActionCostType.PommesCapacity;
         }
     }
 }
