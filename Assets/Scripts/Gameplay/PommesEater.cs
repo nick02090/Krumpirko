@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 namespace Gameplay
@@ -8,9 +9,14 @@ namespace Gameplay
     {
         public enum EaterState
         {
+            [Description("Eating")]
             Eating,
+            [Description("Starving")]
             Starving
         };
+
+        public delegate void StateChange();
+        public StateChange onStateChange;
 
         /// <summary>
         /// Pommes per seconds.
@@ -28,15 +34,15 @@ namespace Gameplay
         /// <summary>
         /// Seconds since the eater last ate.
         /// </summary>
-        public float TimeSinceLastAction { get; private set; }
+        public float TimeSinceLastAction; // TODO: Set to private once you finished debugging
         /// <summary>
         /// Current capacity of the pommes.
         /// </summary>
-        public int PommesCapacity { get; private set; }
+        public int PommesCapacity; // TODO: Set to private once you finished debugging
         /// <summary>
         /// Current state.
         /// </summary>
-        public EaterState State { get; set; }
+        public EaterState State; // TODO: Set to private once you finished debugging
 
         /// <summary>
         /// Determines whether the eater can hold any more food.
@@ -56,8 +62,8 @@ namespace Gameplay
         void Start()
         {
             // Initialize member variables
-            State = EaterState.Starving;
-            PommesCapacity = 0;
+            ChangeState(EaterState.Starving);
+            PommesCapacity = 200;
             TimeSinceLastAction = 0;
         }
 
@@ -65,9 +71,33 @@ namespace Gameplay
         {
             // Update PommesCapacity if the eater has any food (based on its eating rate)
 
-            // Update State if necessary
+            // Update State
+            if (PommesCapacity <= 0)
+            {
+                ChangeState(EaterState.Starving);
+            }
+            else
+            {
+                ChangeState(EaterState.Eating);
+            }
 
             // Update TimeSinceLastAction via Time (or something similar) based on the State change
+        }
+
+        void ChangeState(EaterState state)
+        {
+            // State stays unchanged
+            if (state == State)
+            {
+                return;
+            }
+            // State has changed
+            else
+            {
+                State = state;
+                // Invoke the delegates that are subscribed
+                onStateChange?.Invoke();
+            }
         }
     }
 }

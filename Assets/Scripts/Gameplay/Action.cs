@@ -1,14 +1,37 @@
-﻿namespace Gameplay.Actions
+﻿using Gameplay.Characters;
+using System.ComponentModel;
+
+namespace Gameplay.Actions
 {
-    public abstract class Action
+    public enum ActionType
+    {
+        [Description("Bait")]
+        Bait,
+        [Description("Cough")]
+        Cough,
+        [Description("Gum")]
+        Gum,
+        [Description("Hot Sauce")]
+        HotSauce,
+        [Description("Ketchup")]
+        Ketchup
+    }
+
+    public interface IAction
     {
         /// <summary>
-        /// Cost of the action.
+        /// Gets cost for this action.
         /// </summary>
-        public const int cost = 0;
+        /// <returns></returns>
+        int GetCost();
+        /// <summary>
+        /// Gets type of this action.
+        /// </summary>
+        /// <returns></returns>
+        ActionType GetType();
         /// <summary>
         /// Activates this action.
         /// </summary>
-        public abstract void Execute();
+        void Execute(ICharacter character);
     }
 }

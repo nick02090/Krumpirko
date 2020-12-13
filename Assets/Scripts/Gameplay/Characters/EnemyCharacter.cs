@@ -49,5 +49,10 @@ namespace Gameplay.Characters
         {
             throw new System.NotImplementedException();
         }
+
+        public Transform GetTransform()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
