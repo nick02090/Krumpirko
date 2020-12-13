@@ -4259,7 +4259,7 @@ MonoBehaviour:
     CoughActionCost: 20
     GumActionCost: 5
     HotSauceActionCost: 30
-    KetchupActionCost: 0
+    KetchupActionCost: 15
     ActionMultiplier: 1
 --- !u!195 &2072153159
 NavMeshAgent:
