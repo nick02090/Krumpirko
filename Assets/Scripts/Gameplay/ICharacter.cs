@@ -1,4 +1,5 @@
 ﻿using Gameplay.Actions;
+using Gameplay.Ailments;
 using UnityEngine;
 
 namespace Gameplay.Characters
@@ -16,5 +17,7 @@ namespace Gameplay.Characters
         int BaitWithHotSauce();
         void DisableAction(ActionType actionType);
         void EnableAction(ActionType actionType);
+        void InflictWith(Ailment ailment);
+        void DropAllPommes();
     }
 }

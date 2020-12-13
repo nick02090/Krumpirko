@@ -80,5 +80,15 @@ namespace Gameplay.Characters
         {
             throw new System.NotImplementedException();
         }
+
+        public void InflictWith(Ailment ailment)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DropAllPommes()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

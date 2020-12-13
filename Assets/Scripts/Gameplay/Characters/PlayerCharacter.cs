@@ -17,6 +17,10 @@ namespace Gameplay.Characters
 
         public GameObject baitPrefab;
         public Transform baitParent;
+
+        public ParticleSystem coughParticle;
+        public Transform coughParent;
+
         public ActionCosts actionCosts;
 
         /// <summary>
@@ -39,11 +43,12 @@ namespace Gameplay.Characters
             // Subscribe to eater delegates
             pommesEater.onStateChange += OnEaterStateChange;
             pommesEater.onDeath += OnEaterDeath;
+            pommesEater.onHotSauce += OnHotSauce;
             // Initialize action mappings
             actionMapping = new Dictionary<ActionType, IAction>()
             {
                 { ActionType.Bait, new BaitAction(baitPrefab, baitParent) },
-                { ActionType.Cough, new CoughAction() },
+                { ActionType.Cough, new CoughAction(coughParticle, coughParent) },
                 { ActionType.Gum, new GumAction() },
                 { ActionType.HotSauce, new HotSauceAction() },
                 { ActionType.Ketchup, new KetchupAction() }
@@ -101,6 +106,12 @@ namespace Gameplay.Characters
             Debug.Log($"Player eater has changed state to {pommesEater.State.DescriptionAttr()}.");
         }
 
+        private void OnHotSauce()
+        {
+            // TODO: Update player properties so they match the current eater state.
+            Debug.Log($"Player eater has ate a pommes that has hot sauce on it.");
+        }
+
         public void DisableAllActions()
         {
             throw new System.NotImplementedException();
@@ -155,6 +166,16 @@ namespace Gameplay.Characters
         }
 
         public void EnableAction(ActionType actionType)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void InflictWith(Ailment ailment)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DropAllPommes()
         {
             throw new System.NotImplementedException();
         }
