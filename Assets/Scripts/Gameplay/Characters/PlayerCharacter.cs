@@ -21,6 +21,9 @@ namespace Gameplay.Characters
         public ParticleSystem coughParticle;
         public Transform coughParent;
 
+        public GameObject ketchupPrefab;
+        public Transform ketchupParent;
+
         public ActionCosts actionCosts;
 
         /// <summary>
@@ -51,7 +54,7 @@ namespace Gameplay.Characters
                 { ActionType.Cough, new CoughAction(coughParticle, coughParent) },
                 { ActionType.Gum, new GumAction() },
                 { ActionType.HotSauce, new HotSauceAction() },
-                { ActionType.Ketchup, new KetchupAction() }
+                { ActionType.Ketchup, new KetchupAction(ketchupPrefab, ketchupParent) }
             };
         }
 

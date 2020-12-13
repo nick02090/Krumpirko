@@ -3048,6 +3048,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1469912667}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1503693676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1503693677}
+  m_Layer: 0
+  m_Name: Ketchups
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1503693677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503693676}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1543231019
 GameObject:
   m_ObjectHideFlags: 0
@@ -4221,12 +4251,15 @@ MonoBehaviour:
   coughParticle: {fileID: 6179417057268582358, guid: a8e61023942f218479cc699aa11f145f,
     type: 3}
   coughParent: {fileID: 604683258}
+  ketchupPrefab: {fileID: 385844514468773299, guid: e0e42035446f2fd4f9877d9b32f35df3,
+    type: 3}
+  ketchupParent: {fileID: 1503693677}
   actionCosts:
     BaitActionCost: 10
-    CoughActionCost: 0
+    CoughActionCost: 20
     GumActionCost: 5
     HotSauceActionCost: 30
-    KetchupActionCost: 15
+    KetchupActionCost: 0
     ActionMultiplier: 1
 --- !u!195 &2072153159
 NavMeshAgent:

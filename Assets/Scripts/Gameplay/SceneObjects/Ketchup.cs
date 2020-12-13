@@ -1,4 +1,8 @@
-﻿namespace Gameplay.SceneObjects
+﻿using Gameplay.Ailments;
+using Gameplay.Characters;
+using UnityEngine;
+
+namespace Gameplay.SceneObjects
 {
     public class Ketchup : SceneObject
     {
@@ -9,6 +13,16 @@
         public override void Interact()
         {
             throw new System.NotImplementedException();
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Enemy"))
+            {
+                // Get enemy
+                EnemyCharacter enemyCharacter = other.GetComponentInParent<EnemyCharacter>();
+                // Inflict the enemy with Slow ailment
+                enemyCharacter.InflictWith(new SlowAilment());
+            }
         }
     }
 }
