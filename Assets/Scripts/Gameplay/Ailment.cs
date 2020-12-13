@@ -2,7 +2,7 @@
 
 namespace Gameplay.Ailments
 {
-    public abstract partial class Ailment
+    public abstract class Ailment
     {
         /// <summary>
         /// Duration of the ailment.

@@ -2,20 +2,17 @@
 
 namespace Gameplay.Ailments
 {
-    public abstract partial class Ailment
+    public class HappyAilment : Ailment
     {
-        public class HappyAilment : Ailment
+        /// <summary>
+        /// HAPPY:
+        ///     - takes effect after eating a chewing gum
+        ///     - moves away from the player
+        /// </summary>
+        /// <param name="character"></param>
+        public override void Activate(ICharacter character)
         {
-            /// <summary>
-            /// HAPPY:
-            ///     - takes effect after eating a chewing gum
-            ///     - moves away from the player
-            /// </summary>
-            /// <param name="character"></param>
-            public override void Activate(ICharacter character)
-            {
-                throw new System.NotImplementedException();
-            }
+            throw new System.NotImplementedException();
         }
     }
 }

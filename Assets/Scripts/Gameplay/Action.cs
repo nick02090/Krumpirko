@@ -1,6 +1,6 @@
 ﻿namespace Gameplay.Actions
 {
-    public abstract partial class Action
+    public abstract class Action
     {
         /// <summary>
         /// Cost of the action.
