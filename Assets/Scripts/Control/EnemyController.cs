@@ -13,14 +13,26 @@ namespace Control
         /// </summary>
         private EnemyCharacter enemyCharacter;
 
+        Animator anim;
+        NavMeshAgent agent;
+
+        FsmAI ai;
+
         void Start()
         {
             enemyCharacter = GetComponent<EnemyCharacter>();
+            
+            anim = this.GetComponent<Animator>();
+            agent = this.GetComponent<NavMeshAgent>();
+            GameObject player = GameObject.FindWithTag("Player");
+
+            EnemyState startingState = new StateEnter(this.gameObject, agent, anim, player.transform);
+            ai = new FsmAI(startingState);
         }
 
         void Update()
         {
-
+            ai.Update();
         }
     }
 }
