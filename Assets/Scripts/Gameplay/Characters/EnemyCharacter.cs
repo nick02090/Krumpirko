@@ -90,5 +90,10 @@ namespace Gameplay.Characters
         {
             throw new System.NotImplementedException();
         }
+
+        public void AddGum()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

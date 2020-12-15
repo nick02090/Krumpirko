@@ -2942,11 +2942,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3765476901088098872, guid: 24e8337f37a1b7345a5023fed0131a58,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24e8337f37a1b7345a5023fed0131a58, type: 3}
 --- !u!4 &1426714413 stripped
@@ -4230,8 +4225,9 @@ MonoBehaviour:
   immuneToHotSauce: 0
   PommesCapacity: 100
   PommesEaten: 0
-  State: 0
   HotSaucePommesCapacity: 0
+  GumCapacity: 0
+  State: 0
 --- !u!114 &2072153158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4260,7 +4256,7 @@ MonoBehaviour:
     GumActionCost: 5
     HotSauceActionCost: 30
     KetchupActionCost: 15
-    ActionMultiplier: 1
+    ActionMultiplier: 0
 --- !u!195 &2072153159
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -55,13 +55,17 @@ namespace Gameplay
         /// </summary>
         public int PommesEaten; // TODO: Set to private once you finished debugging
         /// <summary>
-        /// Current state.
-        /// </summary>
-        public EaterState State; // TODO: Set to private once you finished debugging
-        /// <summary>
         /// Current capacity of the pommes that have hot sauce over itself.
         /// </summary>
         public int HotSaucePommesCapacity; // TODO: Set to private once you finished debugging
+        /// <summary>
+        /// Current capacity of the chewing gums.
+        /// </summary>
+        public int GumCapacity; // TODO: Set to private once you finished debugging
+        /// <summary>
+        /// Current state.
+        /// </summary>
+        public EaterState State; // TODO: Set to private once you finished debugging
 
         private float timer = 0.0f;
 
@@ -69,7 +73,10 @@ namespace Gameplay
         {
             // Initialize member variables
             ChangeState(EaterState.Starving);
-            PommesCapacity = 100;
+            PommesCapacity = 0;
+            PommesEaten = 0;
+            HotSaucePommesCapacity = 0;
+            GumCapacity = 0;
         }
 
         public void Update()

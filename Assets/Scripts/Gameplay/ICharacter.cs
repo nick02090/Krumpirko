@@ -19,5 +19,6 @@ namespace Gameplay.Characters
         void EnableAction(ActionType actionType);
         void InflictWith(Ailment ailment);
         void DropAllPommes();
+        void AddGum();
     }
 }

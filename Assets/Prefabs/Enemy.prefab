@@ -31,7 +31,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3765476901088098869}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.34, y: 1.32, z: -5.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -123,10 +123,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b946a7c5c56ac8499ba9b90692b444e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eatingRate: 0
-  deathClock: 0
+  eatingRate: 2
+  deathClock: 20
   maxPommesCapacity: 1
-  eatsHotSauce: 0
+  eatsHotSauce: 1
   immuneToHotSauce: 0
   PommesCapacity: 0
   PommesEaten: 0

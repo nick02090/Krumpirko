@@ -11,7 +11,7 @@ namespace Gameplay.Actions
         /// </summary>
         public void Execute(ICharacter character)
         {
-            throw new System.NotImplementedException();
+            character.AddGum();
         }
 
         public ActionCostType GetCostType()

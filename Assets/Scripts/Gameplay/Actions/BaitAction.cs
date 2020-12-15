@@ -37,7 +37,7 @@ namespace Gameplay.Actions
             }
             // Get player position
             Transform characterTransform = character.GetTransform();
-            // Calculate baits position (in front of the player)
+            // Calculate baits position
             Vector3 baitPosition = characterTransform.position - (characterTransform.up * 0.5f);
             // Create a bait
             GameObject bait = Object.Instantiate(BaitPrefab, baitPosition, characterTransform.rotation);

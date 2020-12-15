@@ -156,7 +156,6 @@ namespace Gameplay.Characters
             int numberOfHotSaucePommes = Mathf.Clamp(pommesEater.HotSaucePommesCapacity, 0, 10);
             // Remove those from the count
             pommesEater.HotSaucePommesCapacity -= numberOfHotSaucePommes;
-            // TODO: Check with the others from the team if you should keep this or not
             // Since you lost some from the capacity but you actually used those with hot sauce as a bait
             // recover the lost pommes in the capacity
             pommesEater.PommesCapacity += numberOfHotSaucePommes;
@@ -181,6 +180,11 @@ namespace Gameplay.Characters
         public void DropAllPommes()
         {
             throw new System.NotImplementedException();
+        }
+
+        public void AddGum()
+        {
+            pommesEater.GumCapacity++;
         }
     }
 }
