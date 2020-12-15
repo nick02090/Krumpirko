@@ -1,47 +1,51 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.AI;
 
-public class StateChase : EnemyState
+namespace AI.Enemy
 {
-    public StateChase(GameObject _enemy, NavMeshAgent _agent, Animator _anim, Transform _player)
-                : base(_enemy, _agent, _anim, _player)
+    public class StateChase : EnemyState
     {
-        name = STATE.CHASE;
-        agent.speed = 5;
-        agent.isStopped = false;
-    }
+        public StateChase(GameObject _enemy, NavMeshAgent _agent, Animator _anim, Transform _player)
+                    : base(_enemy, _agent, _anim, _player)
+        {
+            name = STATE.CHASE;
+            agent.isStopped = false;
 
-    public override void Enter()
-    {
-        // Debug.Log("I'm in Chase");
+            visAngle = 20f;
+            agent.speed = 5;
+        }
 
-        // anim.SetTrigger("isRunning");
-        visAngle = 20f;
-        base.Enter();
-    }
+        public override void Enter()
+        {
+            Debug.Log("I'm in Chase");
 
-    public override void Update()
-    {
-        agent.SetDestination(player.position);
-        if(agent.hasPath)
+            // anim.SetTrigger("isRunning");
+            agent.SetDestination(player.position);
+
+            base.Enter();
+        }
+
+        public override void Update()
         {
             if (CanStealFries())
             {
                 nextState = new StateEating(enemy, agent, anim, player);
                 stage = EVENT.EXIT;
             }
-            else if (!CanSeePlayer() && Random.Range(0, 100) < 10)
+            else if (!CanSensePlayer() && Random.Range(0, 100) < 10)
             {
-                nextState = new StateIdle(enemy, agent, anim, player);
+                nextState = new StateWander(enemy, agent, anim, player);
                 stage = EVENT.EXIT;
             }
         }
-    }
 
-    public override void Exit()
-    {
-        // anim.ResetTrigger("isRunning");
-        visAngle = 60f;
-        base.Exit();
+        public override void Exit()
+        {
+            // anim.ResetTrigger("isRunning");
+            visAngle = 45f;
+            base.Exit();
+        }
     }
 }

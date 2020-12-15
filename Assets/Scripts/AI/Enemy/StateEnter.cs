@@ -5,26 +5,27 @@ using UnityEngine.AI;
 
 namespace AI.Enemy
 {
-    public class StateWander : EnemyState
+    public class StateEnter : EnemyState
     {
         private float startTime;
 
-        public StateWander(GameObject _enemy, NavMeshAgent _agent, Animator _anim, Transform _player)
+        public StateEnter(GameObject _enemy, NavMeshAgent _agent, Animator _anim, Transform _player)
                     : base(_enemy, _agent, _anim, _player)
         {
-            name = STATE.WANDER;
+            name = STATE.ENTER;
             agent.isStopped = false;
 
             startTime = Time.time;
-            
+
             agent.speed = 2f;
         }
 
         public override void Enter()
         {
-            Debug.Log("I'm in Wander");
+            Debug.Log("I'm in Enter");
 
-            SetRandomDestination(-5f, 5f);
+            Vector3 randomVector = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
+            agent.SetDestination(randomVector); 
 
             base.Enter();
         }
@@ -36,12 +37,7 @@ namespace AI.Enemy
                 nextState = new StateChase(enemy, agent, anim, player);
                 stage = EVENT.EXIT;
             }
-            else if (Time.time - startTime < 3f && agent.remainingDistance < 0.1f)
-            {
-                startTime = Time.time;
-                SetRandomDestination(-5f, 5f);
-            }
-            else if(Time.time - startTime < 3f && Random.Range(0,1000) < 1)
+            else if(Time.time - startTime > 2 && agent.remainingDistance < 2f)
             {
                 nextState = new StateIdle(enemy, agent, anim, player);
                 stage = EVENT.EXIT;
@@ -50,6 +46,7 @@ namespace AI.Enemy
 
         public override void Exit()
         {
+            // anim.ResetTrigger("isIdle");
             base.Exit();
         }
     }
