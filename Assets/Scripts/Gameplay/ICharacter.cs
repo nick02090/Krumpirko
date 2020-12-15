@@ -18,7 +18,10 @@ namespace Gameplay.Characters
         void DisableAction(ActionType actionType);
         void EnableAction(ActionType actionType);
         void InflictWith(Ailment ailment);
-        void DropAllPommes();
+        bool IsImmuneTo(AilmentType ailmentType);
+        int GetLeftPommesCapacity();
+        void AddPommes(int numberOfPommes, int numberOfHotPommes);
         void AddGum();
+        bool HasTag(string tag);
     }
 }

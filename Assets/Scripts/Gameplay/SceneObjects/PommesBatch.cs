@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Gameplay.Characters;
+using UnityEngine;
 
 namespace Gameplay.SceneObjects
 {
@@ -12,11 +13,26 @@ namespace Gameplay.SceneObjects
         /// Number of pommes that have hot sauce over it.
         /// </summary>
         public int HotSauceSize = 0;
-        public override void Interact()
+        public override void Interact(ICharacter character)
         {
-            // Check if there's any hot sauce pommes and return it to the collider
-            // Update Size and HotSauceSize
-            throw new System.NotImplementedException();
+            if (character.HasTag("Enemy"))
+            {
+                int remainingPommes = character.GetLeftPommesCapacity();
+                // Calculate the total number of pommes and the number of hot pommes inside that total
+                int numberOfPommes = Mathf.Clamp(remainingPommes, 0, Size);
+                int numberOfHotPommes = Mathf.Clamp(remainingPommes, 0, HotSauceSize);
+                character.AddPommes(numberOfPommes, numberOfHotPommes);
+                // Update pommes numbers inside this batch
+                Size -= numberOfPommes;
+                HotSauceSize -= numberOfHotPommes;
+            }
+        }
+        private void Update()
+        {
+            if (Size <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

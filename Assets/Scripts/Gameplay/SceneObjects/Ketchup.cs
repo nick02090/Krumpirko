@@ -1,6 +1,5 @@
 ﻿using Gameplay.Ailments;
 using Gameplay.Characters;
-using UnityEngine;
 
 namespace Gameplay.SceneObjects
 {
@@ -9,19 +8,23 @@ namespace Gameplay.SceneObjects
         /// <summary>
         /// Determines for how many more enemies is effective.
         /// </summary>
-        public int EffectiveFor { get; set; }
-        public override void Interact()
+        public int EffectiveFor = 3;
+        /// <summary>
+        /// Inflicts Slow ailment on the character
+        /// </summary>
+        public override void Interact(ICharacter character)
         {
-            throw new System.NotImplementedException();
-        }
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Enemy"))
+            if (!character.IsImmuneTo(AilmentType.Slow))
             {
-                // Get enemy
-                EnemyCharacter enemyCharacter = other.GetComponentInParent<EnemyCharacter>();
-                // Inflict the enemy with Slow ailment
-                enemyCharacter.InflictWith(new SlowAilment());
+                character.InflictWith(new SlowAilment());
+                EffectiveFor--;
+            }
+        }
+        private void Update()
+        {
+            if (EffectiveFor <= 0)
+            {
+                Destroy(gameObject);
             }
         }
     }

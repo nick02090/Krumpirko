@@ -118,8 +118,9 @@ MonoBehaviour:
   immuneToHotSauce: 0
   PommesCapacity: 100
   PommesEaten: 0
-  State: 0
   HotSaucePommesCapacity: 0
+  GumCapacity: 0
+  State: 0
 --- !u!114 &5360201768869175081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +162,11 @@ MonoBehaviour:
     HotSauceActionCost: 30
     KetchupActionCost: 15
     ActionMultiplier: 1
+  ailmentImmunity:
+    BurnAilmentImmunity: 1
+    FearAilmentImmunity: 1
+    HappyAilmentImmunity: 1
+    SlowAilmentImmunity: 1
 --- !u!195 &5360201768869175082
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Gameplay.Characters;
+using UnityEngine;
 
 namespace Gameplay.SceneObjects
 {
@@ -9,8 +10,8 @@ namespace Gameplay.SceneObjects
         /// </summary>
         public string Name { get; private set; }
         /// <summary>
-        /// Defines interaction with certain the object in the scene.
+        /// Defines interaction with the certain object in the scene.
         /// </summary>
-        public abstract void Interact();
+        public abstract void Interact(ICharacter character);
     }
 }

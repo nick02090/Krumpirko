@@ -1,27 +1,18 @@
 ﻿using Gameplay.Ailments;
 using Gameplay.Characters;
-using System;
-using UnityEngine;
 
 namespace Gameplay.SceneObjects
 {
     public class Cough : SceneObject
     {
-        public override void Interact()
+        /// <summary>
+        /// Inflicts Fear ailment on the character
+        /// </summary>
+        public override void Interact(ICharacter character)
         {
-            throw new NotImplementedException();
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Enemy"))
+            if (!character.IsImmuneTo(AilmentType.Fear))
             {
-                // Get enemy
-                EnemyCharacter enemyCharacter = other.GetComponentInParent<EnemyCharacter>();
-                // Inflict the enemy with Fear ailment
-                enemyCharacter.InflictWith(new FearAilment());
-                // Make enemy drop all of its pommes
-                enemyCharacter.DropAllPommes();
+                character.InflictWith(new FearAilment());
             }
         }
     }

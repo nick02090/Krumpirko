@@ -1,6 +1,4 @@
 ﻿using Gameplay.Actions;
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
@@ -41,10 +39,6 @@ namespace Gameplay
         /// Flag that determines whether the eater will eat hot sauce pommes.
         /// </summary>
         [SerializeField] public bool eatsHotSauce = false;
-        /// <summary>
-        /// Flag that determines whether the eater won't be affected with ailment after eating hot sauce pommes.
-        /// </summary>
-        [SerializeField] public bool immuneToHotSauce = false;
 
         /// <summary>
         /// Current capacity of the pommes.
@@ -95,11 +89,8 @@ namespace Gameplay
                     {
                         // Eat one hot sauce pommes
                         HotSaucePommesCapacity--;
-                        if (!immuneToHotSauce)
-                        {
-                            // Invoke the subscribers on eater hot sauce eating if he's not immune to hot sauce
-                            onHotSauce?.Invoke();
-                        }
+                        // Invoke the subscribers on eater hot sauce eating if he's not immune to hot sauce
+                        onHotSauce?.Invoke();
                     }
                     else
                     {

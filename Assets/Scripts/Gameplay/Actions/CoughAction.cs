@@ -24,7 +24,7 @@ namespace Gameplay.Actions
         /// <summary>
         /// COUGH/KASALJ:
         ///         - affects all enemies that are within the radius of the players current position
-        ///         - enemies are inflicted with Fear ailment and they immediately drop all of their pommes
+        ///         - enemies are inflicted with Fear ailment
         /// </summary>
         public void Execute(ICharacter character)
         {

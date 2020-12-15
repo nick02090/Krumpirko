@@ -1,7 +1,20 @@
 ﻿using Gameplay.Characters;
+using System.ComponentModel;
 
 namespace Gameplay.Ailments
 {
+    public enum AilmentType
+    {
+        [Description("Burn")]
+        Burn,
+        [Description("Fear")]
+        Fear,
+        [Description("Happy")]
+        Happy,
+        [Description("Slow")]
+        Slow
+    }
+
     public abstract class Ailment
     {
         /// <summary>

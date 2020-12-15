@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Gameplay.Ailments;
 using Gameplay.Actions;
@@ -25,6 +24,7 @@ namespace Gameplay.Characters
         public Transform ketchupParent;
 
         public ActionCosts actionCosts;
+        public AilmentImmunity ailmentImmunity;
 
         /// <summary>
         /// Current status of the player that defines it's various properties
@@ -58,11 +58,6 @@ namespace Gameplay.Characters
             };
         }
 
-        void Update()
-        {
-            // Update ailments based on their timers
-        }
-
         public bool CanExecuteAction(ActionType actionType)
         {
             if (actionMapping.TryGetValue(actionType, out IAction action))
@@ -91,6 +86,7 @@ namespace Gameplay.Characters
             }
         }
 
+        #region Pommes eater delegates
         /// <summary>
         /// Called when eater hasn't eaten anything for a while.
         /// </summary>
@@ -109,12 +105,19 @@ namespace Gameplay.Characters
             Debug.Log($"Player eater has changed state to {pommesEater.State.DescriptionAttr()}.");
         }
 
+        /// <summary>
+        /// Called when eater eats the pommes with hot sauce on it.
+        /// </summary>
         private void OnHotSauce()
         {
-            // TODO: Update player properties so they match the current eater state.
-            Debug.Log($"Player eater has ate a pommes that has hot sauce on it.");
+            if (!IsImmuneTo(AilmentType.Burn))
+            {
+                ailments.Add(new BurnAilment());
+            }
         }
+        #endregion
 
+        #region ICharacter
         public void DisableAllActions()
         {
             throw new System.NotImplementedException();
@@ -186,5 +189,27 @@ namespace Gameplay.Characters
         {
             pommesEater.GumCapacity++;
         }
+
+        public bool IsImmuneTo(AilmentType ailmentType)
+        {
+            return ailmentImmunity.GetImmunity(ailmentType);
+        }
+
+        public int GetLeftPommesCapacity()
+        {
+            return pommesEater.LeftCapacity;
+        }
+
+        public void AddPommes(int numberOfPommes, int numberOfHotPommes)
+        {
+            pommesEater.PommesCapacity += numberOfPommes;
+            pommesEater.HotSaucePommesCapacity += numberOfHotPommes;
+        }
+
+        public bool HasTag(string tag)
+        {
+            return CompareTag(tag);
+        }
+        #endregion
     }
 }

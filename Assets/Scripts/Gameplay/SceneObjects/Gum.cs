@@ -1,13 +1,19 @@
-﻿namespace Gameplay.SceneObjects
+﻿using Gameplay.Ailments;
+using Gameplay.Characters;
+
+namespace Gameplay.SceneObjects
 {
     public class Gum : SceneObject
     {
         /// <summary>
         /// Inflicts Happy ailment on the enemy
         /// </summary>
-        public override void Interact()
+        public override void Interact(ICharacter character)
         {
-            throw new System.NotImplementedException();
+            if (!character.IsImmuneTo(AilmentType.Happy))
+            {
+                character.InflictWith(new HappyAilment());
+            }
         }
     }
 }
