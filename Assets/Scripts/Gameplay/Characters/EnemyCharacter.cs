@@ -48,13 +48,21 @@ namespace Gameplay.Characters
             // Collision with the player
             if (collision.gameObject.CompareTag("Player"))
             {
-                // TODO
                 // Steal pommes from player and add them to your capacity
+                PommesEater playersPommesEater = collision.gameObject.GetComponent<PommesEater>();
+                if (playersPommesEater.PommesCapacity > 0)
+                {
+                    int remainingPommes = pommesEater.LeftCapacity;
+                    int numberOfTakenPommes = Mathf.Clamp(remainingPommes, 0, playersPommesEater.PommesCapacity);
+                    int numberOfHotPommes = Mathf.Clamp(playersPommesEater.HotSaucePommesCapacity, 0, remainingPommes);
+                    pommesEater.AddPommes(numberOfTakenPommes, numberOfHotPommes);
+                    playersPommesEater.RemovePommes(numberOfTakenPommes, 0);
+                }
             }
             // Collision with pickable object
-            if (collision.collider.TryGetComponent(out SceneObject sceneObject))
+            if (collision.gameObject.TryGetComponent(out SceneObject sceneObject))
             {
-                if (!sceneObject.IsPickable())
+                if (sceneObject.IsPickable())
                 {
                     sceneObject.Interact(this);
                 }

@@ -114,7 +114,7 @@ namespace Gameplay
             }
 
             // Update State
-            if (PommesCapacity <= 0 || (eatsHotSauce && HotSaucePommesCapacity <= 0))
+            if (PommesCapacity <= 0 || (eatsHotSauce && HotSaucePommesCapacity <= 0 && PommesCapacity <= 0))
             {
                 ChangeState(EaterState.Starving);
             }
@@ -194,10 +194,6 @@ namespace Gameplay
         }
 
         /// <summary>
-        /// Determines whether the eater can hold any more food.
-        /// </summary>
-        public bool HasAnyCapacity => PommesCapacity + HotSaucePommesCapacity < maxPommesCapacity;
-        /// <summary>
         /// Number of the left capacity.
         /// </summary>
         public int LeftCapacity => maxPommesCapacity - (PommesCapacity + HotSaucePommesCapacity);
@@ -206,6 +202,6 @@ namespace Gameplay
         /// </summary>
         /// <param name="amount"></param>
         /// <returns></returns>
-        public bool CanHold(int amount) => PommesCapacity + HotSaucePommesCapacity + amount < maxPommesCapacity;
+        public bool CanHold(int amount) => PommesCapacity + HotSaucePommesCapacity + amount <= maxPommesCapacity;
     }
 }

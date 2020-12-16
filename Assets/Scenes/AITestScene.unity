@@ -1957,6 +1957,11 @@ PrefabInstance:
       propertyPath: coughParent
       value: 
       objectReference: {fileID: 1023633926}
+    - target: {fileID: 5360201768869175083, guid: 5e97667112ee5a845bccaf479df52001,
+        type: 3}
+      propertyPath: actionCosts.ActionMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5360201768869175085, guid: 5e97667112ee5a845bccaf479df52001,
         type: 3}
       propertyPath: m_IsTrigger
