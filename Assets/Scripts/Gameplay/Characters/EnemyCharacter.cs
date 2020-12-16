@@ -165,6 +165,11 @@ namespace Gameplay.Characters
         {
             return CompareTag(tag);
         }
+
+        public float GetRotationSpeed()
+        {
+            throw new System.NotImplementedException();
+        }
         #endregion
     }
 }

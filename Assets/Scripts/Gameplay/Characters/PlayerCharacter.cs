@@ -13,6 +13,10 @@ namespace Gameplay.Characters
         /// Determines the speed of the player movement.
         /// </summary>
         public float movementSpeed = 1.0f;
+        /// <summary>
+        /// Determines the speed of the player rotation.
+        /// </summary>
+        public float rotationSpeed = 180.0f;
 
         public GameObject baitPrefab;
         public Transform baitParent;
@@ -209,6 +213,11 @@ namespace Gameplay.Characters
         public bool HasTag(string tag)
         {
             return CompareTag(tag);
+        }
+
+        public float GetRotationSpeed()
+        {
+            return rotationSpeed;
         }
         #endregion
     }

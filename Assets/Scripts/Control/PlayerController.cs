@@ -34,10 +34,12 @@ namespace Control
         void Update()
         {
             // Move player (based on input)
-            float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
             float movementSpeed = playerCharacter.GetMovementSpeed();
-            transform.Translate(movementSpeed * horizontal * Time.deltaTime, 0f, movementSpeed * vertical * Time.deltaTime);
+            transform.Translate(0f, 0f, movementSpeed * vertical * Time.deltaTime);
+            float horizontal = Input.GetAxis("Horizontal");
+            float rotationSpeed = playerCharacter.GetRotationSpeed();
+            transform.Rotate(transform.up, rotationSpeed * horizontal * Time.deltaTime);
 
             // Check for input and play an action if available
             foreach (KeyValuePair<ActionType, List<KeyCode>> keyValuePair in actionMapping)
