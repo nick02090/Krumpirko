@@ -43,23 +43,23 @@ namespace Gameplay
         /// <summary>
         /// Current capacity of the pommes.
         /// </summary>
-        public int PommesCapacity; // TODO: Set to private once you finished debugging
+        public int PommesCapacity; // TODO: set to private once you finished debugging
         /// <summary>
         /// Number of eaten pommes.
         /// </summary>
-        public int PommesEaten; // TODO: Set to private once you finished debugging
+        public int PommesEaten; // TODO: set to private once you finished debugging
         /// <summary>
         /// Current capacity of the pommes that have hot sauce over itself.
         /// </summary>
-        public int HotSaucePommesCapacity; // TODO: Set to private once you finished debugging
+        public int HotSaucePommesCapacity; // TODO: set to private once you finished debugging
         /// <summary>
         /// Current capacity of the chewing gums.
         /// </summary>
-        public int GumCapacity; // TODO: Set to private once you finished debugging
+        public int GumCapacity; // TODO: set to private once you finished debugging
         /// <summary>
         /// Current state.
         /// </summary>
-        public EaterState State; // TODO: Set to private once you finished debugging
+        public EaterState State; // TODO: set to private once you finished debugging
 
         private float timer = 0.0f;
 
@@ -173,19 +173,39 @@ namespace Gameplay
             }
         }
 
+        public void AddPommes(int totalNumberOfPommes, int numberOfHotPommes)
+        {
+            if (CanHold(totalNumberOfPommes))
+            {
+                HotSaucePommesCapacity += numberOfHotPommes;
+                PommesCapacity += totalNumberOfPommes - numberOfHotPommes;
+            }
+        }
+
+        public void RemovePommes(int totalNumberOfPommes, int numberOfHotPommes)
+        {
+            HotSaucePommesCapacity -= numberOfHotPommes;
+            PommesCapacity -= totalNumberOfPommes - numberOfHotPommes;
+        }
+
+        public void AddGum()
+        {
+            GumCapacity++;
+        }
+
         /// <summary>
         /// Determines whether the eater can hold any more food.
         /// </summary>
-        public bool HasAnyCapacity => PommesCapacity < maxPommesCapacity;
+        public bool HasAnyCapacity => PommesCapacity + HotSaucePommesCapacity < maxPommesCapacity;
         /// <summary>
         /// Number of the left capacity.
         /// </summary>
-        public int LeftCapacity => maxPommesCapacity - PommesCapacity;
+        public int LeftCapacity => maxPommesCapacity - (PommesCapacity + HotSaucePommesCapacity);
         /// <summary>
         /// Determines whether the eater can hold extra given amount of food.
         /// </summary>
         /// <param name="amount"></param>
         /// <returns></returns>
-        public bool CanHold(int amount) => maxPommesCapacity + amount < maxPommesCapacity;
+        public bool CanHold(int amount) => PommesCapacity + HotSaucePommesCapacity + amount < maxPommesCapacity;
     }
 }

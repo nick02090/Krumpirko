@@ -13,6 +13,7 @@ namespace Gameplay.SceneObjects
         /// Number of pommes that have hot sauce over it.
         /// </summary>
         public int HotSauceSize = 0;
+
         public override void Interact(ICharacter character)
         {
             if (character.HasTag("Enemy"))
@@ -27,6 +28,12 @@ namespace Gameplay.SceneObjects
                 HotSauceSize -= numberOfHotPommes;
             }
         }
+
+        public override bool IsPickable()
+        {
+            return true;
+        }
+
         private void Update()
         {
             if (Size <= 0)

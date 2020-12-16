@@ -3,6 +3,7 @@ using UnityEngine;
 using Gameplay.Characters;
 using Gameplay.Actions;
 using Core;
+using Gameplay.SceneObjects;
 
 namespace Control
 {
@@ -16,7 +17,7 @@ namespace Control
         /// <summary>
         /// Action mapping with key codes for the input.
         /// </summary>
-        private Dictionary<ActionType, List<KeyCode>> actionMapping = new Dictionary<ActionType, List<KeyCode>>()
+        private readonly Dictionary<ActionType, List<KeyCode>> actionMapping = new Dictionary<ActionType, List<KeyCode>>()
         {
             { ActionType.Bait, new List<KeyCode>(){ KeyCode.Alpha1, KeyCode.Keypad1 } },
             { ActionType.Cough, new List<KeyCode>(){ KeyCode.Alpha2, KeyCode.Keypad2 } },
@@ -25,13 +26,13 @@ namespace Control
             { ActionType.Ketchup, new List<KeyCode>(){ KeyCode.Alpha5, KeyCode.Keypad5 } },
         };
 
-        void Start()
+        private void Start()
         {
             // Initialize member variables
             playerCharacter = GetComponent<PlayerCharacter>();
         }
 
-        void Update()
+        private void FixedUpdate()
         {
             // Move player (based on input)
             float vertical = Input.GetAxis("Vertical");
@@ -40,7 +41,10 @@ namespace Control
             float horizontal = Input.GetAxis("Horizontal");
             float rotationSpeed = playerCharacter.GetRotationSpeed();
             transform.Rotate(transform.up, rotationSpeed * horizontal * Time.deltaTime);
+        }
 
+        private void Update()
+        {
             // Check for input and play an action if available
             foreach (KeyValuePair<ActionType, List<KeyCode>> keyValuePair in actionMapping)
             {
@@ -62,6 +66,17 @@ namespace Control
                             playerCharacter.ExecuteAction(actionType);
                         }
                     }
+                }
+            }
+
+            // Check for pickup input
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                // If the player is currently colliding with anything
+                if (playerCharacter.TryGetCollider(out SceneObject sceneObject))
+                {
+                    // Make player interact with it
+                    sceneObject.Interact(playerCharacter);
                 }
             }
         }

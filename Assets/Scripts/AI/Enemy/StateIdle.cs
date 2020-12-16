@@ -20,7 +20,7 @@ namespace AI.Enemy
 
         public override void Enter()
         {
-            Debug.Log("I'm in Idle");
+            //Debug.Log("I'm in Idle");
 
             // anim.SetTrigger("isIdle"); 
             base.Enter();

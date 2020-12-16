@@ -22,7 +22,7 @@ namespace AI.Enemy
 
         public override void Enter()
         {
-            Debug.Log("I'm in Enter");
+            //Debug.Log("I'm in Enter");
 
             Vector3 randomVector = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
             agent.SetDestination(randomVector); 

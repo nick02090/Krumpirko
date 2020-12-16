@@ -34,16 +34,27 @@ namespace Gameplay.Characters
 
         private void OnTriggerEnter(Collider other)
         {
+            if (other.TryGetComponent(out SceneObject sceneObject))
+            {
+                if (!sceneObject.IsPickable())
+                {
+                    sceneObject.Interact(this);
+                }
+            }
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
             // Collision with the player
-            if (other.CompareTag("Player"))
+            if (collision.gameObject.CompareTag("Player"))
             {
                 // TODO
                 // Steal pommes from player and add them to your capacity
             }
-            // Collision with some scene object
-            else
+            // Collision with pickable object
+            if (collision.collider.TryGetComponent(out SceneObject sceneObject))
             {
-                if (other.TryGetComponent(out SceneObject sceneObject))
+                if (!sceneObject.IsPickable())
                 {
                     sceneObject.Interact(this);
                 }
@@ -155,10 +166,9 @@ namespace Gameplay.Characters
             return pommesEater.LeftCapacity;
         }
 
-        public void AddPommes(int numberOfPommes, int numberOfHotPommes)
+        public void AddPommes(int totalNumberOfPommes, int numberOfHotPommes)
         {
-            pommesEater.PommesCapacity += numberOfPommes;
-            pommesEater.HotSaucePommesCapacity += numberOfHotPommes;
+            pommesEater.AddPommes(totalNumberOfPommes, numberOfHotPommes);
         }
 
         public bool HasTag(string tag)

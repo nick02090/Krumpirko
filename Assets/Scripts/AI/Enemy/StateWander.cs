@@ -22,7 +22,7 @@ namespace AI.Enemy
 
         public override void Enter()
         {
-            Debug.Log("I'm in Wander");
+            //Debug.Log("I'm in Wander");
 
             SetRandomDestination(-5f, 5f);
 
