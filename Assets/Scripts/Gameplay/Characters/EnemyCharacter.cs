@@ -56,7 +56,7 @@ namespace Gameplay.Characters
         /// </summary>
         private void OnEaterStateChange()
         {
-            Debug.Log($"Enemy eater has changed state to {pommesEater.State.DescriptionAttr()}.");
+            //Debug.Log($"Enemy eater has changed state to {pommesEater.State.DescriptionAttr()}.");
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Gameplay.Characters
         /// </summary>
         private void OnEaterDeath()
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
 
         /// <summary>
