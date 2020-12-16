@@ -5,6 +5,11 @@ namespace Gameplay.SceneObjects
 {
     public class Cough : SceneObject
     {
+        public override void HideOutline()
+        {
+            throw new System.NotImplementedException();
+        }
+
         /// <summary>
         /// Inflicts Fear ailment on the character
         /// </summary>
@@ -14,6 +19,11 @@ namespace Gameplay.SceneObjects
             {
                 character.InflictWith(new FearAilment());
             }
+        }
+
+        public override void ShowOutline()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

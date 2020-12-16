@@ -37,6 +37,22 @@ namespace Gameplay.SceneObjects
             return true;
         }
 
+        public override void HideOutline()
+        {
+            if (IsPickable())
+            {
+                // TODO: Hide outline
+            }
+        }
+
+        public override void ShowOutline()
+        {
+            if (IsPickable())
+            {
+                // TODO: Show outline
+            }
+        }
+
         private void Update()
         {
             if (Size <= 0)

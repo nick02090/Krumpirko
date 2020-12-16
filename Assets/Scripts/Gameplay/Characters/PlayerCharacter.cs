@@ -119,16 +119,20 @@ namespace Gameplay.Characters
                 if (sceneObject.IsPickable())
                 {
                     currentCollider = sceneObject;
-                    // TODO: Highlight the current collider
+                    // Highlight the current collider
+                    currentCollider.ShowOutline();
                 }
             }
         }
 
         private void OnCollisionExit(Collision collision)
         {
-            // TODO: Remove the highlight from the collider
-
-            currentCollider = null;
+            if (currentCollider != null)
+            {
+                // Remove the highlight from the collider
+                currentCollider.HideOutline();
+                currentCollider = null;
+            }
         }
 
         #region Pommes eater delegates

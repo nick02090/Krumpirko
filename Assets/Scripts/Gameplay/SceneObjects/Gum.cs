@@ -5,6 +5,11 @@ namespace Gameplay.SceneObjects
 {
     public class Gum : SceneObject
     {
+        public override void HideOutline()
+        {
+            throw new System.NotImplementedException();
+        }
+
         /// <summary>
         /// Inflicts Happy ailment on the enemy
         /// </summary>
@@ -14,6 +19,11 @@ namespace Gameplay.SceneObjects
             {
                 character.InflictWith(new HappyAilment());
             }
+        }
+
+        public override void ShowOutline()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
