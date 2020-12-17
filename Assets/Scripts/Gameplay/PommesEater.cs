@@ -1,4 +1,5 @@
-﻿using Gameplay.Actions;
+﻿using Core;
+using Gameplay.Actions;
 using System.ComponentModel;
 using UnityEngine;
 
@@ -66,13 +67,10 @@ namespace Gameplay
         public EaterState State; // TODO: set to private once you finished debugging
 
         private float eatingTimer = 0.0f;
-        private float changeTimer = 0.0f;
 
-        private UnityEngine.UI.Text changesText;
-        private Vector3 initialChangesPosition;
-        private readonly float changeTime = 2.0f;
-        private readonly Color redColor = new Color(1.0f, 0.0f, 0.0f);
-        private readonly Color greenColor = new Color(0.0f, 1.0f, 0.0f);
+        public MessagePopup messagePopup;
+        private readonly Color redColor = Color.red;
+        private readonly Color greenColor = Color.green;
 
         public void Start()
         {
@@ -82,17 +80,14 @@ namespace Gameplay
             PommesEaten = 0;
             HotSaucePommesCapacity = 0;
             GumCapacity = 0;
-            changesText = transform.GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Text>();
-            changesText.gameObject.SetActive(false);
-            initialChangesPosition = changesText.transform.localPosition;
-            changeTimer = changeTime;
+            // Set message popup show/hide flag
+            messagePopup.ShowMessage = ShowCapacityChanges;
         }
 
         public void Update()
         {
             // Calculate elapsed time from last frame (seconds)
             eatingTimer += Time.deltaTime;
-            changeTimer += Time.deltaTime;
 
             // Update PommesCapacity if the eater has any food (based on its eating rate)
             if (State == EaterState.Eating)
@@ -138,23 +133,6 @@ namespace Gameplay
             else
             {
                 ChangeState(EaterState.Eating);
-            }
-
-            // Update show/hide state for capacity change
-            if (ShowCapacityChanges)
-            {
-                // Display the message
-                if (changeTimer <= changeTime)
-                {
-                    changesText.gameObject.SetActive(true);
-                    // Move the message text upwards (semi-static-animation)
-                    changesText.transform.Translate(changesText.transform.up * Time.deltaTime * 1.0f);
-                }
-                // Hide the message
-                else
-                {
-                    changesText.gameObject.SetActive(false);
-                }
             }
         }
 
@@ -234,11 +212,10 @@ namespace Gameplay
         {
             if (value > 0)
             {
-                changeTimer = 0.0f;
-                changesText.transform.localPosition = initialChangesPosition;
-                changesText.color = isPositive ? greenColor : redColor;
+                Color color = isPositive ? greenColor : redColor;
                 string sign = isPositive ? "+" : "-";
-                changesText.text = $"{sign}{value}";
+                string message = $"{sign}{value}";
+                messagePopup.ResetTimer(message, color);
             }
         }
 

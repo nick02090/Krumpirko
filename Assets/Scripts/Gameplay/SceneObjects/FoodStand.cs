@@ -1,4 +1,5 @@
-﻿using Gameplay.Characters;
+﻿using Core;
+using Gameplay.Characters;
 using UnityEngine;
 
 namespace Gameplay.SceneObjects
@@ -9,10 +10,9 @@ namespace Gameplay.SceneObjects
         public int BatchOfPommesSize = 5;
         public bool ShowTimer = true;
 
-        private readonly float messageTime = 2.0f;
-        private UnityEngine.UI.Text messageText;
+        public MessagePopup MessagePopup;
+
         private UnityEngine.UI.Text timerText;
-        private Vector3 initialMessagePosition;
         private GameObject pommes;
         private ParticleSystem steam;
 
@@ -20,7 +20,6 @@ namespace Gameplay.SceneObjects
         public int NumberOfPommes { get; private set; }
 
         private float cookingTimer;
-        private float messageTimer;
         private readonly string[] messages = { "Pommes is cooking!", "Almost ready!", "Come back later!" };
 
         public FoodStand()
@@ -28,19 +27,17 @@ namespace Gameplay.SceneObjects
             TimeUntilNextBatch = 1.0f;
             NumberOfPommes = 0;
             cookingTimer = 0.0f;
-            messageTimer = messageTime;
         }
 
         private void Start()
         {
+            // Set the message popup to always show the message
+            MessagePopup.ShowMessage = true;
+
             // Get canvas
             Transform canvas = gameObject.transform.GetChild(0);
-            // First child of the canvas is the message
-            messageText = canvas.GetChild(0).GetComponent<UnityEngine.UI.Text>();
-            messageText.gameObject.SetActive(false);
-            initialMessagePosition = messageText.transform.position;
-            // Second child of the canvas is the timer
-            timerText = canvas.GetChild(1).GetComponent<UnityEngine.UI.Text>();
+            // First child of the canvas is the timer
+            timerText = canvas.GetChild(0).GetComponent<UnityEngine.UI.Text>();
 
             // Get pommes
             pommes = gameObject.transform.GetChild(1).gameObject;
@@ -72,12 +69,7 @@ namespace Gameplay.SceneObjects
                     // Select a random message
                     System.Random random = new System.Random();
                     int index = random.Next(0, messages.Length);
-                    // Set the random message as the text
-                    messageText.text = messages[index];
-                    // Set the text position to initial
-                    messageText.transform.position = initialMessagePosition;
-                    // Reset the message timer
-                    messageTimer = 0.0f;
+                    MessagePopup.ResetTimer(messages[index], null);
                 }
             }
         }
@@ -91,7 +83,6 @@ namespace Gameplay.SceneObjects
         {
             // Calculate elapsed time from last frame (seconds)
             cookingTimer += Time.deltaTime;
-            messageTimer += Time.deltaTime;
 
             // Every timeUntilNextBatch seconds put another batch of pommes on the shelves
             if (cookingTimer >= TimeUntilNextBatch)
@@ -104,19 +95,6 @@ namespace Gameplay.SceneObjects
                 cookingTimer = 0.0f;
                 // Play the steam particle system
                 steam.Play();
-            }
-
-            // Display the message
-            if (messageTimer <= messageTime)
-            {
-                messageText.gameObject.SetActive(true);
-                // Move the message text upwards (semi-static-animation)
-                messageText.transform.Translate(messageText.transform.up * Time.deltaTime * 1.0f);
-            }
-            // Hide the message
-            else
-            {
-                messageText.gameObject.SetActive(false);
             }
 
             // Display the timer on the food stand

@@ -96,6 +96,11 @@ namespace Gameplay.Characters
 
         private void OnCollisionEnter(Collision collision)
         {
+            // Enemy collision shouldn't interupt the player collision with other pickable scene objects
+            if (collision.collider.CompareTag("Enemy"))
+            {
+                return;
+            }
             if (collision.collider.TryGetComponent(out SceneObject sceneObject))
             {
                 if (sceneObject.IsPickable())
@@ -109,6 +114,11 @@ namespace Gameplay.Characters
 
         private void OnCollisionExit(Collision collision)
         {
+            // Enemy collision shouldn't interupt the player collision with other pickable scene objects
+            if (collision.collider.CompareTag("Enemy"))
+            {
+                return;
+            }
             if (CurrentCollider != null)
             {
                 // Remove the highlight from the collider

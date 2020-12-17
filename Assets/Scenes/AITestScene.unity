@@ -2803,7 +2803,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: FoodStand
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6561370880589902489, guid: b9ee98370e45d9e4a95e2aed044c2de3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b9ee98370e45d9e4a95e2aed044c2de3, type: 3}
 --- !u!1001 &6341436684614232609
 PrefabInstance:
