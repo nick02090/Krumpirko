@@ -10,11 +10,6 @@ namespace Gameplay.SceneObjects
         /// </summary>
         public int EffectiveFor = 3;
 
-        public override void HideOutline()
-        {
-            throw new System.NotImplementedException();
-        }
-
         /// <summary>
         /// Inflicts Slow ailment on the character
         /// </summary>
@@ -25,11 +20,6 @@ namespace Gameplay.SceneObjects
                 character.InflictWith(new SlowAilment());
                 EffectiveFor--;
             }
-        }
-
-        public override void ShowOutline()
-        {
-            throw new System.NotImplementedException();
         }
 
         private void Update()

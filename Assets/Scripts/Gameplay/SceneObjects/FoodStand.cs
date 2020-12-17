@@ -1,5 +1,4 @@
-﻿using cakeslice;
-using Gameplay.Characters;
+﻿using Gameplay.Characters;
 using UnityEngine;
 
 namespace Gameplay.SceneObjects
@@ -16,7 +15,6 @@ namespace Gameplay.SceneObjects
         private Vector3 initialMessagePosition;
         private GameObject pommes;
         private ParticleSystem steam;
-        private Outline outline;
 
         public float TimeUntilNextBatch { get; private set; }
         public int NumberOfPommes { get; private set; }
@@ -50,9 +48,6 @@ namespace Gameplay.SceneObjects
 
             // Get steam particles
             steam = gameObject.transform.GetChild(2).gameObject.GetComponent<ParticleSystem>();
-
-            // Get outline
-            outline = GetComponent<Outline>();
         }
 
         /// <summary>
@@ -135,16 +130,6 @@ namespace Gameplay.SceneObjects
         public override bool IsPickable()
         {
             return true;
-        }
-
-        public override void ShowOutline()
-        {
-            outline.eraseRenderer = false;
-        }
-
-        public override void HideOutline()
-        {
-            outline.eraseRenderer = true;
         }
     }
 }

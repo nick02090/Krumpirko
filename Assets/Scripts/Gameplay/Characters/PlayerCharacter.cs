@@ -120,7 +120,7 @@ namespace Gameplay.Characters
                 {
                     currentCollider = sceneObject;
                     // Highlight the current collider
-                    currentCollider.ShowOutline();
+                    currentCollider.ShowHighlight();
                 }
             }
         }
@@ -130,7 +130,7 @@ namespace Gameplay.Characters
             if (currentCollider != null)
             {
                 // Remove the highlight from the collider
-                currentCollider.HideOutline();
+                currentCollider.HideHighlight();
                 currentCollider = null;
             }
         }
@@ -206,11 +206,11 @@ namespace Gameplay.Characters
         {
             // Calculate how many pommes you have with hot sauce on them
             int numberOfHotSaucePommes = Mathf.Clamp(pommesEater.HotSaucePommesCapacity, 0, PommesBatch.SIZE);
-            // Remove those from the count
-            pommesEater.RemovePommes(numberOfHotSaucePommes, numberOfHotSaucePommes);
             // Since you lost some from the capacity but you actually used those with hot sauce as a bait
             // recover the lost pommes in the capacity
             pommesEater.AddPommes(numberOfHotSaucePommes, 0);
+            // Remove those from the count
+            pommesEater.RemovePommes(numberOfHotSaucePommes, numberOfHotSaucePommes);
             return numberOfHotSaucePommes;
         }
 

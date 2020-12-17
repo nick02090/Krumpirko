@@ -10,13 +10,19 @@ namespace Gameplay.SceneObjects
         /// </summary>
         public abstract void Interact(ICharacter character);
         /// <summary>
-        /// Outlines the object if it's pickable
+        /// Highlight the object if it's pickable
         /// </summary>
-        public abstract void ShowOutline();
+        public void ShowHighlight()
+        {
+            GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+        }
         /// <summary>
-        /// Hides the outline of the object.
+        /// Disable the highlight of the object.
         /// </summary>
-        public abstract void HideOutline();
+        public void HideHighlight()
+        {
+            GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
+        }
         public virtual bool IsPickable()
         {
             return false;

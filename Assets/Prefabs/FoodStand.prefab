@@ -348,7 +348,6 @@ GameObject:
   - component: {fileID: 6064630587699383205}
   - component: {fileID: 6064630587699383206}
   - component: {fileID: 6064630587699383202}
-  - component: {fileID: 406883369}
   m_Layer: 0
   m_Name: FoodStand
   m_TagString: Untagged
@@ -448,20 +447,6 @@ MonoBehaviour:
   TimeMultiplier: 2
   BatchOfPommesSize: 10
   ShowTimer: 1
---- !u!114 &406883369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6064630587699383207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 0
-  eraseRenderer: 1
 --- !u!1001 &6345142586327888625
 PrefabInstance:
   m_ObjectHideFlags: 0
