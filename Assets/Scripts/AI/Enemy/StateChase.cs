@@ -19,7 +19,7 @@ namespace AI.Enemy
 
         public override void Enter()
         {
-            Debug.Log("I'm in Chase");
+            //Debug.Log("I'm in Chase");
 
             // anim.SetTrigger("isRunning");
             agent.SetDestination(player.position);

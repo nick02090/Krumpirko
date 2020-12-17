@@ -34,16 +34,35 @@ namespace Gameplay.Characters
 
         private void OnTriggerEnter(Collider other)
         {
-            // Collision with the player
-            if (other.CompareTag("Player"))
+            if (other.TryGetComponent(out SceneObject sceneObject))
             {
-                // TODO
-                // Steal pommes from player and add them to your capacity
+                if (!sceneObject.IsPickable())
+                {
+                    sceneObject.Interact(this);
+                }
             }
-            // Collision with some scene object
-            else
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            // Collision with the player
+            if (collision.gameObject.CompareTag("Player"))
             {
-                if (other.TryGetComponent(out SceneObject sceneObject))
+                // Steal pommes from player and add them to your capacity
+                PommesEater playersPommesEater = collision.gameObject.GetComponent<PommesEater>();
+                if (playersPommesEater.PommesCapacity > 0)
+                {
+                    int remainingPommes = pommesEater.LeftCapacity;
+                    int numberOfTakenPommes = Mathf.Clamp(remainingPommes, 0, playersPommesEater.PommesCapacity);
+                    int numberOfHotPommes = Mathf.Clamp(playersPommesEater.HotSaucePommesCapacity, 0, remainingPommes);
+                    pommesEater.AddPommes(numberOfTakenPommes, numberOfHotPommes);
+                    playersPommesEater.RemovePommes(numberOfTakenPommes, 0);
+                }
+            }
+            // Collision with pickable object
+            if (collision.gameObject.TryGetComponent(out SceneObject sceneObject))
+            {
+                if (sceneObject.IsPickable())
                 {
                     sceneObject.Interact(this);
                 }
@@ -56,7 +75,7 @@ namespace Gameplay.Characters
         /// </summary>
         private void OnEaterStateChange()
         {
-            Debug.Log($"Enemy eater has changed state to {pommesEater.State.DescriptionAttr()}.");
+            //Debug.Log($"Enemy eater has changed state to {pommesEater.State.DescriptionAttr()}.");
         }
 
         /// <summary>
@@ -64,7 +83,7 @@ namespace Gameplay.Characters
         /// </summary>
         private void OnEaterDeath()
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
 
         /// <summary>
@@ -155,15 +174,19 @@ namespace Gameplay.Characters
             return pommesEater.LeftCapacity;
         }
 
-        public void AddPommes(int numberOfPommes, int numberOfHotPommes)
+        public void AddPommes(int totalNumberOfPommes, int numberOfHotPommes)
         {
-            pommesEater.PommesCapacity += numberOfPommes;
-            pommesEater.HotSaucePommesCapacity += numberOfHotPommes;
+            pommesEater.AddPommes(totalNumberOfPommes, numberOfHotPommes);
         }
 
         public bool HasTag(string tag)
         {
             return CompareTag(tag);
+        }
+
+        public float GetRotationSpeed()
+        {
+            throw new System.NotImplementedException();
         }
         #endregion
     }

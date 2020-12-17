@@ -23,7 +23,7 @@ namespace AI.Enemy
 
         public override void Enter()
         {
-            Debug.Log("I'm in Eating");
+            //Debug.Log("I'm in Eating");
 
             // anim.SetTrigger("isEating");
             

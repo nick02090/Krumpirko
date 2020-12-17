@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Gameplay.Characters;
+using AI;
+using AI.Enemy;
+using UnityEngine.AI;
 
 namespace Control
 {
@@ -22,11 +23,11 @@ namespace Control
         {
             enemyCharacter = GetComponent<EnemyCharacter>();
             
-            anim = this.GetComponent<Animator>();
-            agent = this.GetComponent<UnityEngine.AI.NavMeshAgent>();
+            anim = GetComponent<Animator>();
+            agent = GetComponent<NavMeshAgent>();
             GameObject player = GameObject.FindWithTag("Player");
 
-            EnemyState startingState = new StateEnter(this.gameObject, agent, anim, player.transform);
+            EnemyState startingState = new StateEnter(gameObject, agent, anim, player.transform);
             ai = new FsmAI(startingState);
         }
 

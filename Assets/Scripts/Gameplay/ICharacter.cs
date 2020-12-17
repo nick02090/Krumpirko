@@ -9,6 +9,7 @@ namespace Gameplay.Characters
     {
         void SetMovementSpeed(float movementSpeed);
         float GetMovementSpeed();
+        float GetRotationSpeed();
         void DisableAllActions();
         void EnableAllActions();
         Transform GetTransform();

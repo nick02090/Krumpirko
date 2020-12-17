@@ -9,6 +9,12 @@ namespace Gameplay.SceneObjects
         /// Determines for how many more enemies is effective.
         /// </summary>
         public int EffectiveFor = 3;
+
+        public override void HideOutline()
+        {
+            throw new System.NotImplementedException();
+        }
+
         /// <summary>
         /// Inflicts Slow ailment on the character
         /// </summary>
@@ -20,6 +26,12 @@ namespace Gameplay.SceneObjects
                 EffectiveFor--;
             }
         }
+
+        public override void ShowOutline()
+        {
+            throw new System.NotImplementedException();
+        }
+
         private void Update()
         {
             if (EffectiveFor <= 0)

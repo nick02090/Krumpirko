@@ -2,7 +2,7 @@
 using UnityEngine;
 using Gameplay.Ailments;
 using Gameplay.Actions;
-using Core;
+using Gameplay.SceneObjects;
 
 namespace Gameplay.Characters
 {
@@ -13,6 +13,10 @@ namespace Gameplay.Characters
         /// Determines the speed of the player movement.
         /// </summary>
         public float movementSpeed = 1.0f;
+        /// <summary>
+        /// Determines the speed of the player rotation.
+        /// </summary>
+        public float rotationSpeed = 180.0f;
 
         public GameObject baitPrefab;
         public Transform baitParent;
@@ -34,6 +38,7 @@ namespace Gameplay.Characters
         /// Holds the information about eating.
         /// </summary>
         private PommesEater pommesEater;
+        public SceneObject currentCollider = null; // TODO: Set to private once you finish debugging
 
         // TODO: Export this somewhere outside from the player definition
         private Dictionary<ActionType, IAction> actionMapping;
@@ -86,6 +91,50 @@ namespace Gameplay.Characters
             }
         }
 
+        public bool TryGetCollider(out SceneObject sceneObject)
+        {
+            sceneObject = currentCollider;
+            if (sceneObject != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out SceneObject sceneObject))
+            {
+                if (!sceneObject.IsPickable())
+                {
+                    sceneObject.Interact(this);
+                }
+            }
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.collider.TryGetComponent(out SceneObject sceneObject))
+            {
+                if (sceneObject.IsPickable())
+                {
+                    currentCollider = sceneObject;
+                    // Highlight the current collider
+                    currentCollider.ShowOutline();
+                }
+            }
+        }
+
+        private void OnCollisionExit(Collision collision)
+        {
+            if (currentCollider != null)
+            {
+                // Remove the highlight from the collider
+                currentCollider.HideOutline();
+                currentCollider = null;
+            }
+        }
+
         #region Pommes eater delegates
         /// <summary>
         /// Called when eater hasn't eaten anything for a while.
@@ -93,7 +142,7 @@ namespace Gameplay.Characters
         private void OnEaterDeath()
         {
             // TODO: Update player properties so they math the current eater state.
-            Debug.Log($"Player eater has died.");
+            //Debug.Log($"Player eater has died.");
         }
 
         /// <summary>
@@ -102,7 +151,7 @@ namespace Gameplay.Characters
         private void OnEaterStateChange()
         {
             // TODO: Update player properties so they match the current eater state.
-            Debug.Log($"Player eater has changed state to {pommesEater.State.DescriptionAttr()}.");
+            //Debug.Log($"Player eater has changed state to {pommesEater.State.DescriptionAttr()}.");
         }
 
         /// <summary>
@@ -156,12 +205,12 @@ namespace Gameplay.Characters
         public int BaitWithHotSauce()
         {
             // Calculate how many pommes you have with hot sauce on them
-            int numberOfHotSaucePommes = Mathf.Clamp(pommesEater.HotSaucePommesCapacity, 0, 10);
+            int numberOfHotSaucePommes = Mathf.Clamp(pommesEater.HotSaucePommesCapacity, 0, PommesBatch.SIZE);
             // Remove those from the count
-            pommesEater.HotSaucePommesCapacity -= numberOfHotSaucePommes;
+            pommesEater.RemovePommes(numberOfHotSaucePommes, numberOfHotSaucePommes);
             // Since you lost some from the capacity but you actually used those with hot sauce as a bait
             // recover the lost pommes in the capacity
-            pommesEater.PommesCapacity += numberOfHotSaucePommes;
+            pommesEater.AddPommes(numberOfHotSaucePommes, 0);
             return numberOfHotSaucePommes;
         }
 
@@ -187,7 +236,7 @@ namespace Gameplay.Characters
 
         public void AddGum()
         {
-            pommesEater.GumCapacity++;
+            pommesEater.AddGum();
         }
 
         public bool IsImmuneTo(AilmentType ailmentType)
@@ -200,15 +249,19 @@ namespace Gameplay.Characters
             return pommesEater.LeftCapacity;
         }
 
-        public void AddPommes(int numberOfPommes, int numberOfHotPommes)
+        public void AddPommes(int totalNumberOfPommes, int numberOfHotPommes)
         {
-            pommesEater.PommesCapacity += numberOfPommes;
-            pommesEater.HotSaucePommesCapacity += numberOfHotPommes;
+            pommesEater.AddPommes(totalNumberOfPommes, numberOfHotPommes);
         }
 
         public bool HasTag(string tag)
         {
             return CompareTag(tag);
+        }
+
+        public float GetRotationSpeed()
+        {
+            return rotationSpeed;
         }
         #endregion
     }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Core
 {
@@ -30,7 +28,7 @@ namespace Core
             if (Time.time - startTime >= spawnPeriod && spawnedPrefabs < spawnigCapacity) 
             {
                 Vector3 position = transform.position;
-                GameObject obj = Instantiate(prefab, position, Quaternion.identity) as GameObject;
+                GameObject obj = Instantiate(prefab, position, Quaternion.identity);
                 obj.transform.SetParent(transform);
 
                 spawnedPrefabs++;
