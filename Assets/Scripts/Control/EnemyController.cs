@@ -14,7 +14,7 @@ namespace Control
         private EnemyCharacter enemyCharacter;
 
         Animator anim;
-        NavMeshAgent agent;
+        UnityEngine.AI.NavMeshAgent agent;
 
         FsmAI ai;
 
@@ -23,7 +23,7 @@ namespace Control
             enemyCharacter = GetComponent<EnemyCharacter>();
             
             anim = this.GetComponent<Animator>();
-            agent = this.GetComponent<NavMeshAgent>();
+            agent = this.GetComponent<UnityEngine.AI.NavMeshAgent>();
             GameObject player = GameObject.FindWithTag("Player");
 
             EnemyState startingState = new StateEnter(this.gameObject, agent, anim, player.transform);
