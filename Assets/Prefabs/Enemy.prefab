@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3765476901088098877}
   - component: {fileID: 3765476901088098878}
   - component: {fileID: 6039149847094181391}
+  - component: {fileID: 8999448524156820999}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -115,11 +116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba73cd6f916db304b834e2097ce7e465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ailmentImmunity:
-    BurnAilmentImmunity: 0
-    FearAilmentImmunity: 0
-    HappyAilmentImmunity: 0
-    SlowAilmentImmunity: 0
 --- !u!114 &3765476901088098876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +189,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8999448524156820999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3765476901088098869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2895ce69ae9143c4abf66a3aac7d647b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AilmentImmunity:
+    BurnAilmentImmunity: 0
+    FearAilmentImmunity: 0
+    HappyAilmentImmunity: 0
+    SlowAilmentImmunity: 0
 --- !u!1 &6998364407232606409
 GameObject:
   m_ObjectHideFlags: 0

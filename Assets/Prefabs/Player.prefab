@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 5360201768869175083}
   - component: {fileID: 5360201768869175082}
   - component: {fileID: 4938750007193250281}
+  - component: {fileID: 1034741216}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -363,11 +364,6 @@ MonoBehaviour:
     KetchupPrefab: {fileID: 385844514468773299, guid: e0e42035446f2fd4f9877d9b32f35df3,
       type: 3}
     KetchupParent: {fileID: 0}
-  AilmentImmunity:
-    BurnAilmentImmunity: 1
-    FearAilmentImmunity: 1
-    HappyAilmentImmunity: 1
-    SlowAilmentImmunity: 1
 --- !u!195 &5360201768869175082
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -406,6 +402,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1034741216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5360201768869175123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2895ce69ae9143c4abf66a3aac7d647b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AilmentImmunity:
+    BurnAilmentImmunity: 1
+    FearAilmentImmunity: 1
+    HappyAilmentImmunity: 1
+    SlowAilmentImmunity: 1
 --- !u!1 &7855383182502114066
 GameObject:
   m_ObjectHideFlags: 0

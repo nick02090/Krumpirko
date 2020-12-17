@@ -1942,6 +1942,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1034741216, guid: 5e97667112ee5a845bccaf479df52001, type: 3}
+      propertyPath: AilmentImmunity.SlowAilmentImmunity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5360201768869175083, guid: 5e97667112ee5a845bccaf479df52001,
         type: 3}
       propertyPath: ActionMappings.BaitParent

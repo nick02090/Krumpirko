@@ -1,5 +1,5 @@
-﻿using Gameplay.Actions;
-using Gameplay.Ailments;
+﻿using Gameplay.Ailments;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.Characters
@@ -10,18 +10,21 @@ namespace Gameplay.Characters
         void SetMovementSpeed(float movementSpeed);
         float GetMovementSpeed();
         float GetRotationSpeed();
-        void DisableAllActions();
-        void EnableAllActions();
         Transform GetTransform();
         void SpillHotSauce();
         bool CanBaitWithHotSauce();
         int BaitWithHotSauce();
-        void DisableAction(ActionType actionType);
-        void EnableAction(ActionType actionType);
         void InflictWith(Ailment ailment);
         bool IsImmuneTo(AilmentType ailmentType);
+        float GetEatingRate();
+        void SetEatingRate(float eatingRate);
+        float GetDeathClock();
+        void SetDeathClock(float deathClock);
         int GetLeftPommesCapacity();
+        int GetMaxPommesCapacity();
+        void SetMaxPommesCapacity(int maxCapacity);
         void AddPommes(int numberOfPommes, int numberOfHotPommes);
+        List<Ailment> GetAilments();
         void AddGum();
         bool HasTag(string tag);
     }

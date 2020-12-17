@@ -208,6 +208,11 @@ namespace Gameplay
             GumCapacity++;
         }
 
+        public void RemoveGum()
+        {
+            GumCapacity--;
+        }
+
         private void ShowChange(int value, bool isPositive)
         {
             if (value > 0)

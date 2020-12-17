@@ -1,35 +1,32 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Gameplay.Ailments;
-using Gameplay.Actions;
 using Gameplay.SceneObjects;
-using Core;
+using System.Collections.Generic;
 
 namespace Gameplay.Characters
 {
     [RequireComponent(typeof(PommesEater))]
+    [RequireComponent(typeof(AilmentHandler))]
     public class EnemyCharacter : MonoBehaviour, ICharacter
     {
-        public AilmentImmunity ailmentImmunity;
-
         /// <summary>
-        /// Current status of the player that defines it's various properties
+        /// Holds the information about ailments.
         /// </summary>
-        private List<Ailment> ailments;
+        public AilmentHandler AilmentHandler { get; private set; }
         /// <summary>
         /// Holds the information about eating.
         /// </summary>
-        private PommesEater pommesEater;
+        public PommesEater PommesEater { get; private set; }
 
         private void Start()
         {
             // Initialize member variables
-            ailments = new List<Ailment>();
-            pommesEater = GetComponent<PommesEater>();
+            AilmentHandler = GetComponent<AilmentHandler>();
+            PommesEater = GetComponent<PommesEater>();
             // Subscribe to eater delegates
-            pommesEater.onStateChange += OnEaterStateChange;
-            pommesEater.onDeath += OnEaterDeath;
-            pommesEater.onHotSauce += OnHotSauce;
+            PommesEater.onStateChange += OnEaterStateChange;
+            PommesEater.onDeath += OnEaterDeath;
+            PommesEater.onHotSauce += OnHotSauce;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -50,12 +47,17 @@ namespace Gameplay.Characters
             {
                 // Steal pommes from player and add them to your capacity
                 PommesEater playersPommesEater = collision.gameObject.GetComponent<PommesEater>();
-                if (playersPommesEater.PommesCapacity > 0)
+                if (playersPommesEater.GumCapacity > 0)
                 {
-                    int remainingPommes = pommesEater.LeftCapacity;
+                    playersPommesEater.RemoveGum();
+                    InflictWith(new HappyAilment());
+                }
+                else if (playersPommesEater.PommesCapacity > 0)
+                {
+                    int remainingPommes = PommesEater.LeftCapacity;
                     int numberOfTakenPommes = Mathf.Clamp(remainingPommes, 0, playersPommesEater.PommesCapacity);
                     int numberOfHotPommes = Mathf.Clamp(playersPommesEater.HotSaucePommesCapacity, 0, remainingPommes);
-                    pommesEater.AddPommes(numberOfTakenPommes, numberOfHotPommes);
+                    PommesEater.AddPommes(numberOfTakenPommes, numberOfHotPommes);
                     playersPommesEater.RemovePommes(numberOfTakenPommes, 0);
                 }
             }
@@ -93,22 +95,12 @@ namespace Gameplay.Characters
         {
             if (!IsImmuneTo(AilmentType.Burn))
             {
-                ailments.Add(new BurnAilment());
+                AilmentHandler.AddAilment(new BurnAilment());
             }
         }
         #endregion
 
         #region ICharacter
-        public void DisableAllActions()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void EnableAllActions()
-        {
-            throw new System.NotImplementedException();
-        }
-
         public float GetMovementSpeed()
         {
             throw new System.NotImplementedException();
@@ -121,7 +113,7 @@ namespace Gameplay.Characters
 
         public Transform GetTransform()
         {
-            throw new System.NotImplementedException();
+            return transform;
         }
 
         public void SpillHotSauce()
@@ -139,24 +131,9 @@ namespace Gameplay.Characters
             throw new System.NotImplementedException();
         }
 
-        public void DisableAction(ActionType actionType)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void EnableAction(ActionType actionType)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void InflictWith(Ailment ailment)
         {
-            ailments.Add(ailment);
-        }
-
-        public void DropAllPommes()
-        {
-            throw new System.NotImplementedException();
+            AilmentHandler.AddAilment(ailment);
         }
 
         public void AddGum()
@@ -166,17 +143,17 @@ namespace Gameplay.Characters
 
         public bool IsImmuneTo(AilmentType ailmentType)
         {
-            return ailmentImmunity.GetImmunity(ailmentType);
+            return AilmentHandler.IsImmune(ailmentType);
         }
 
         public int GetLeftPommesCapacity()
         {
-            return pommesEater.LeftCapacity;
+            return PommesEater.LeftCapacity;
         }
 
         public void AddPommes(int totalNumberOfPommes, int numberOfHotPommes)
         {
-            pommesEater.AddPommes(totalNumberOfPommes, numberOfHotPommes);
+            PommesEater.AddPommes(totalNumberOfPommes, numberOfHotPommes);
         }
 
         public bool HasTag(string tag)
@@ -187,6 +164,41 @@ namespace Gameplay.Characters
         public float GetRotationSpeed()
         {
             throw new System.NotImplementedException();
+        }
+
+        public void SetMaxPommesCapacity(int maxCapacity)
+        {
+            PommesEater.MaxPommesCapacity = maxCapacity;
+        }
+
+        public List<Ailment> GetAilments()
+        {
+            return AilmentHandler.Ailments;
+        }
+
+        public int GetMaxPommesCapacity()
+        {
+            return PommesEater.MaxPommesCapacity;
+        }
+
+        public float GetEatingRate()
+        {
+            return PommesEater.EatingRate;
+        }
+
+        public void SetEatingRate(float eatingRate)
+        {
+            PommesEater.EatingRate = eatingRate;
+        }
+
+        public float GetDeathClock()
+        {
+            return PommesEater.DeathClock;
+        }
+
+        public void SetDeathClock(float deathClock)
+        {
+            PommesEater.DeathClock = deathClock;
         }
         #endregion
     }
