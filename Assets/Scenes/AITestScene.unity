@@ -1976,11 +1976,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4938750007193250281, guid: 5e97667112ee5a845bccaf479df52001,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5360201768869175083, guid: 5e97667112ee5a845bccaf479df52001,
         type: 3}
       propertyPath: baitParent
@@ -1991,16 +1986,6 @@ PrefabInstance:
       propertyPath: coughParent
       value: 
       objectReference: {fileID: 1023633926}
-    - target: {fileID: 5360201768869175083, guid: 5e97667112ee5a845bccaf479df52001,
-        type: 3}
-      propertyPath: actionCosts.ActionMultiplier
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5360201768869175085, guid: 5e97667112ee5a845bccaf479df52001,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5360201768869175086, guid: 5e97667112ee5a845bccaf479df52001,
         type: 3}
       propertyPath: m_LocalPosition.x

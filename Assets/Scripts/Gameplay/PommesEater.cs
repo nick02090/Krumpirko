@@ -26,19 +26,23 @@ namespace Gameplay
         /// <summary>
         /// Seconds per pommes.
         /// </summary>
-        [SerializeField] public float eatingRate;
+        public float EatingRate = 1;
         /// <summary>
         /// Seconds to live without any food.
         /// </summary>
-        [SerializeField] public float deathClock;
+        public float DeathClock = 10;
         /// <summary>
         /// Maximum capacity of the pommes that eater can hold.
         /// </summary>
-        [SerializeField] public int maxPommesCapacity;
+        public int MaxPommesCapacity = 100;
         /// <summary>
         /// Flag that determines whether the eater will eat hot sauce pommes.
         /// </summary>
-        [SerializeField] public bool eatsHotSauce = false;
+        public bool EatsHotSauce = false;
+        /// <summary>
+        /// Flag that determines whether the eater will show information about capacity changes.
+        /// </summary>
+        public bool ShowCapacityChanges = false;
 
         /// <summary>
         /// Current capacity of the pommes.
@@ -61,7 +65,14 @@ namespace Gameplay
         /// </summary>
         public EaterState State; // TODO: set to private once you finished debugging
 
-        private float timer = 0.0f;
+        private float eatingTimer = 0.0f;
+        private float changeTimer = 0.0f;
+
+        private UnityEngine.UI.Text changesText;
+        private Vector3 initialChangesPosition;
+        private readonly float changeTime = 2.0f;
+        private readonly Color redColor = new Color(1.0f, 0.0f, 0.0f);
+        private readonly Color greenColor = new Color(0.0f, 1.0f, 0.0f);
 
         public void Start()
         {
@@ -71,21 +82,26 @@ namespace Gameplay
             PommesEaten = 0;
             HotSaucePommesCapacity = 0;
             GumCapacity = 0;
+            changesText = transform.GetChild(0).GetChild(0).GetComponent<UnityEngine.UI.Text>();
+            changesText.gameObject.SetActive(false);
+            initialChangesPosition = changesText.transform.localPosition;
+            changeTimer = changeTime;
         }
 
         public void Update()
         {
             // Calculate elapsed time from last frame (seconds)
-            timer += Time.deltaTime;
+            eatingTimer += Time.deltaTime;
+            changeTimer += Time.deltaTime;
 
             // Update PommesCapacity if the eater has any food (based on its eating rate)
             if (State == EaterState.Eating)
             {
                 // If it's time to eat -> eat another pommes
-                if (timer >= eatingRate)
+                if (eatingTimer >= EatingRate)
                 {
                     // Check for hot sauce pommes
-                    if (eatsHotSauce && HotSaucePommesCapacity > 0)
+                    if (EatsHotSauce && HotSaucePommesCapacity > 0)
                     {
                         // Eat one hot sauce pommes
                         HotSaucePommesCapacity--;
@@ -98,15 +114,16 @@ namespace Gameplay
                         PommesCapacity--;
                     }
                     // Reset timer
-                    timer = 0.0f;
+                    eatingTimer = 0.0f;
                     // Update pommes eaten number
                     PommesEaten++;
                 }
             }
+
             // Check if the eater is still alive
             else
             {
-                if (timer >= deathClock)
+                if (eatingTimer >= DeathClock)
                 {
                     // Invoke the subscribers on eater death
                     onDeath?.Invoke();
@@ -114,13 +131,30 @@ namespace Gameplay
             }
 
             // Update State
-            if (PommesCapacity <= 0 || (eatsHotSauce && HotSaucePommesCapacity <= 0 && PommesCapacity <= 0))
+            if (PommesCapacity <= 0 || (EatsHotSauce && HotSaucePommesCapacity <= 0 && PommesCapacity <= 0))
             {
                 ChangeState(EaterState.Starving);
             }
             else
             {
                 ChangeState(EaterState.Eating);
+            }
+
+            // Update show/hide state for capacity change
+            if (ShowCapacityChanges)
+            {
+                // Display the message
+                if (changeTimer <= changeTime)
+                {
+                    changesText.gameObject.SetActive(true);
+                    // Move the message text upwards (semi-static-animation)
+                    changesText.transform.Translate(changesText.transform.up * Time.deltaTime * 1.0f);
+                }
+                // Hide the message
+                else
+                {
+                    changesText.gameObject.SetActive(false);
+                }
             }
         }
 
@@ -158,6 +192,7 @@ namespace Gameplay
                 default:
                     break;
             }
+            ShowChange(actionCost, false);
         }
 
         public bool HasCapacityFor(int actionCost, ActionCostType actionCostType)
@@ -179,6 +214,7 @@ namespace Gameplay
             {
                 HotSaucePommesCapacity += numberOfHotPommes;
                 PommesCapacity += totalNumberOfPommes - numberOfHotPommes;
+                ShowChange(totalNumberOfPommes, true);
             }
         }
 
@@ -186,6 +222,7 @@ namespace Gameplay
         {
             HotSaucePommesCapacity -= numberOfHotPommes;
             PommesCapacity -= totalNumberOfPommes - numberOfHotPommes;
+            ShowChange(totalNumberOfPommes, false);
         }
 
         public void AddGum()
@@ -193,15 +230,27 @@ namespace Gameplay
             GumCapacity++;
         }
 
+        private void ShowChange(int value, bool isPositive)
+        {
+            if (value > 0)
+            {
+                changeTimer = 0.0f;
+                changesText.transform.localPosition = initialChangesPosition;
+                changesText.color = isPositive ? greenColor : redColor;
+                string sign = isPositive ? "+" : "-";
+                changesText.text = $"{sign}{value}";
+            }
+        }
+
         /// <summary>
         /// Number of the left capacity.
         /// </summary>
-        public int LeftCapacity => maxPommesCapacity - (PommesCapacity + HotSaucePommesCapacity);
+        public int LeftCapacity => MaxPommesCapacity - (PommesCapacity + HotSaucePommesCapacity);
         /// <summary>
         /// Determines whether the eater can hold extra given amount of food.
         /// </summary>
         /// <param name="amount"></param>
         /// <returns></returns>
-        public bool CanHold(int amount) => PommesCapacity + HotSaucePommesCapacity + amount <= maxPommesCapacity;
+        public bool CanHold(int amount) => PommesCapacity + HotSaucePommesCapacity + amount <= MaxPommesCapacity;
     }
 }
