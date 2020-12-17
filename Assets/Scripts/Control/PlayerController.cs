@@ -17,13 +17,15 @@ namespace Control
         /// <summary>
         /// Action mapping with key codes for the input.
         /// </summary>
-        private readonly Dictionary<ActionType, List<KeyCode>> actionMapping = new Dictionary<ActionType, List<KeyCode>>()
-        {
-            { ActionType.Bait, new List<KeyCode>(){ KeyCode.Alpha1, KeyCode.Keypad1 } },
-            { ActionType.Cough, new List<KeyCode>(){ KeyCode.Alpha2, KeyCode.Keypad2 } },
-            { ActionType.Gum, new List<KeyCode>(){ KeyCode.Alpha3, KeyCode.Keypad3 } },
-            { ActionType.HotSauce, new List<KeyCode>(){ KeyCode.Alpha4, KeyCode.Keypad4 } },
-            { ActionType.Ketchup, new List<KeyCode>(){ KeyCode.Alpha5, KeyCode.Keypad5 } },
+        public ActionInputs ActionInputs;
+        public KeyCode PickupInput = KeyCode.Space;
+        public List<ActionType> AvailableActions = new List<ActionType>() 
+        { 
+            ActionType.Bait, 
+            ActionType.Cough, 
+            ActionType.Gum, 
+            ActionType.HotSauce, 
+            ActionType.Ketchup 
         };
 
         private void Start()
@@ -46,31 +48,32 @@ namespace Control
         private void Update()
         {
             // Check for input and play an action if available
-            foreach (KeyValuePair<ActionType, List<KeyCode>> keyValuePair in actionMapping)
+            foreach (ActionType actionType in AvailableActions)
             {
-                ActionType actionType = keyValuePair.Key;
-                List<KeyCode> keyCodes = keyValuePair.Value;
-                foreach (KeyCode keyCode in keyCodes)
+                if (ActionInputs.TryGetInputs(actionType, out List<KeyCode> keyCodes))
                 {
-                    if (Input.GetKeyDown(keyCode))
+                    foreach (KeyCode keyCode in keyCodes)
                     {
-                        // Player can't execute this action due to unsuficient pommes
-                        if (!playerCharacter.CanExecuteAction(actionType))
+                        if (Input.GetKeyDown(keyCode))
                         {
-                            // TODO: Print a warning message on screen that this action is not available!
-                            Debug.LogWarning($"{actionType.DescriptionAttr()} can't be executed due to unsufficient pommes");
-                            break;
-                        }
-                        else
-                        {
-                            playerCharacter.ExecuteAction(actionType);
+                            // Player can't execute this action due to unsuficient pommes
+                            if (!playerCharacter.CanExecuteAction(actionType))
+                            {
+                                // TODO: Print a warning message on screen that this action is not available!
+                                Debug.LogWarning($"{actionType.DescriptionAttr()} can't be executed due to unsufficient pommes");
+                                break;
+                            }
+                            else
+                            {
+                                playerCharacter.ExecuteAction(actionType);
+                            }
                         }
                     }
                 }
             }
 
             // Check for pickup input
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(PickupInput))
             {
                 // If the player is currently colliding with anything
                 if (playerCharacter.TryGetCollider(out SceneObject sceneObject))

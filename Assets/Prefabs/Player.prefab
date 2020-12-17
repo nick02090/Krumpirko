@@ -513,6 +513,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e402e5c71068ef54784b2dcd8402f6c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActionInputs:
+    BaitInputs: 3100000001010000
+    CoughInputs: 3200000002010000
+    GumInputs: 3300000003010000
+    HotSauceInputs: 3400000004010000
+    KetchupInputs: 3500000005010000
+  PickupInput: 32
+  AvailableActions: 0000000001000000020000000300000004000000
 --- !u!114 &5360201768869175083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,30 +533,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3121e5c9d310dde4184682ea50cdf425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  rotationSpeed: 180
-  baitPrefab: {fileID: 4522254063828869264, guid: a3bc8c142b94b0844b7c5d069520985a,
-    type: 3}
-  baitParent: {fileID: 0}
-  coughParticle: {fileID: 6179417057268582358, guid: a8e61023942f218479cc699aa11f145f,
-    type: 3}
-  coughParent: {fileID: 0}
-  ketchupPrefab: {fileID: 385844514468773299, guid: e0e42035446f2fd4f9877d9b32f35df3,
-    type: 3}
-  ketchupParent: {fileID: 0}
-  actionCosts:
+  MovementSpeed: 5
+  RotationSpeed: 180
+  ActionCosts:
     BaitActionCost: 10
     CoughActionCost: 20
     GumActionCost: 5
     HotSauceActionCost: 30
     KetchupActionCost: 15
     ActionMultiplier: 1
-  ailmentImmunity:
+  ActionMappings:
+    BaitPrefab: {fileID: 4522254063828869264, guid: a3bc8c142b94b0844b7c5d069520985a,
+      type: 3}
+    BaitParent: {fileID: 0}
+    CoughParticle: {fileID: 6179417057268582358, guid: a8e61023942f218479cc699aa11f145f,
+      type: 3}
+    CoughParent: {fileID: 0}
+    KetchupPrefab: {fileID: 385844514468773299, guid: e0e42035446f2fd4f9877d9b32f35df3,
+      type: 3}
+    KetchupParent: {fileID: 0}
+  AilmentImmunity:
     BurnAilmentImmunity: 1
     FearAilmentImmunity: 1
     HappyAilmentImmunity: 1
     SlowAilmentImmunity: 1
-  currentCollider: {fileID: 0}
 --- !u!195 &5360201768869175082
 NavMeshAgent:
   m_ObjectHideFlags: 0

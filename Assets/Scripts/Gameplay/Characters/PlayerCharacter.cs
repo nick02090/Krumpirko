@@ -12,23 +12,15 @@ namespace Gameplay.Characters
         /// <summary>
         /// Determines the speed of the player movement.
         /// </summary>
-        public float movementSpeed = 1.0f;
+        public float MovementSpeed = 1.0f;
         /// <summary>
         /// Determines the speed of the player rotation.
         /// </summary>
-        public float rotationSpeed = 180.0f;
+        public float RotationSpeed = 180.0f;
 
-        public GameObject baitPrefab;
-        public Transform baitParent;
-
-        public ParticleSystem coughParticle;
-        public Transform coughParent;
-
-        public GameObject ketchupPrefab;
-        public Transform ketchupParent;
-
-        public ActionCosts actionCosts;
-        public AilmentImmunity ailmentImmunity;
+        public ActionCosts ActionCosts;
+        public ActionMappings ActionMappings;
+        public AilmentImmunity AilmentImmunity;
 
         /// <summary>
         /// Current status of the player that defines it's various properties
@@ -38,10 +30,8 @@ namespace Gameplay.Characters
         /// Holds the information about eating.
         /// </summary>
         private PommesEater pommesEater;
-        public SceneObject currentCollider = null; // TODO: Set to private once you finish debugging
 
-        // TODO: Export this somewhere outside from the player definition
-        private Dictionary<ActionType, IAction> actionMapping;
+        public SceneObject CurrentCollider { get; private set; }
 
         void Start()
         {
@@ -52,22 +42,14 @@ namespace Gameplay.Characters
             pommesEater.onStateChange += OnEaterStateChange;
             pommesEater.onDeath += OnEaterDeath;
             pommesEater.onHotSauce += OnHotSauce;
-            // Initialize action mappings
-            actionMapping = new Dictionary<ActionType, IAction>()
-            {
-                { ActionType.Bait, new BaitAction(baitPrefab, baitParent) },
-                { ActionType.Cough, new CoughAction(coughParticle, coughParent) },
-                { ActionType.Gum, new GumAction() },
-                { ActionType.HotSauce, new HotSauceAction() },
-                { ActionType.Ketchup, new KetchupAction(ketchupPrefab, ketchupParent) }
-            };
+            CurrentCollider = null;
         }
 
         public bool CanExecuteAction(ActionType actionType)
         {
-            if (actionMapping.TryGetValue(actionType, out IAction action))
+            if (ActionMappings.TryGetAction(actionType, out IAction action))
             {
-                int actionCost = actionCosts.GetCost(actionType);
+                int actionCost = ActionCosts.GetCost(actionType);
                 ActionCostType actionCostType = action.GetCostType();
                 return pommesEater.HasCapacityFor(actionCost, actionCostType);
             }
@@ -76,10 +58,10 @@ namespace Gameplay.Characters
 
         public void ExecuteAction(ActionType actionType)
         {
-            if (actionMapping.TryGetValue(actionType, out IAction action))
+            if (ActionMappings.TryGetAction(actionType, out IAction action))
             {
                 // Update eater current pommes capacity
-                int actionCost = actionCosts.GetCost(actionType);
+                int actionCost = ActionCosts.GetCost(actionType);
                 ActionCostType actionCostType = action.GetCostType();
                 pommesEater.ExecuteAction(actionCost, actionCostType);
                 // Execute the action
@@ -93,7 +75,7 @@ namespace Gameplay.Characters
 
         public bool TryGetCollider(out SceneObject sceneObject)
         {
-            sceneObject = currentCollider;
+            sceneObject = CurrentCollider;
             if (sceneObject != null)
             {
                 return true;
@@ -118,20 +100,20 @@ namespace Gameplay.Characters
             {
                 if (sceneObject.IsPickable())
                 {
-                    currentCollider = sceneObject;
+                    CurrentCollider = sceneObject;
                     // Highlight the current collider
-                    currentCollider.ShowHighlight();
+                    CurrentCollider.ShowHighlight();
                 }
             }
         }
 
         private void OnCollisionExit(Collision collision)
         {
-            if (currentCollider != null)
+            if (CurrentCollider != null)
             {
                 // Remove the highlight from the collider
-                currentCollider.HideHighlight();
-                currentCollider = null;
+                CurrentCollider.HideHighlight();
+                CurrentCollider = null;
             }
         }
 
@@ -179,7 +161,7 @@ namespace Gameplay.Characters
 
         public float GetMovementSpeed()
         {
-            return movementSpeed;
+            return MovementSpeed;
         }
 
         public void SetMovementSpeed(float movementSpeed)
@@ -241,7 +223,7 @@ namespace Gameplay.Characters
 
         public bool IsImmuneTo(AilmentType ailmentType)
         {
-            return ailmentImmunity.GetImmunity(ailmentType);
+            return AilmentImmunity.GetImmunity(ailmentType);
         }
 
         public int GetLeftPommesCapacity()
@@ -261,7 +243,7 @@ namespace Gameplay.Characters
 
         public float GetRotationSpeed()
         {
-            return rotationSpeed;
+            return RotationSpeed;
         }
         #endregion
     }
