@@ -414,6 +414,11 @@ PrefabInstance:
       propertyPath: prefabParent
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
+        type: 3}
+      propertyPath: spawnigCapacity
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 762a8e57a0e0c644680b2763251cbc71, type: 3}
 --- !u!4 &198773491 stripped
@@ -1712,6 +1717,11 @@ PrefabInstance:
       propertyPath: prefabParent
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
+        type: 3}
+      propertyPath: spawnigCapacity
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 762a8e57a0e0c644680b2763251cbc71, type: 3}
 --- !u!4 &1416472444 stripped
@@ -1976,6 +1986,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5360201768869175080, guid: 5e97667112ee5a845bccaf479df52001,
+        type: 3}
+      propertyPath: PommesCapacity
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5360201768869175080, guid: 5e97667112ee5a845bccaf479df52001,
+        type: 3}
+      propertyPath: EatingRate
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5360201768869175080, guid: 5e97667112ee5a845bccaf479df52001,
+        type: 3}
+      propertyPath: MaxPommesCapacity
+      value: 10000
+      objectReference: {fileID: 0}
     - target: {fileID: 5360201768869175083, guid: 5e97667112ee5a845bccaf479df52001,
         type: 3}
       propertyPath: baitParent
