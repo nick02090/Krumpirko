@@ -361,7 +361,7 @@ MonoBehaviour:
     CoughParticle: {fileID: 6179417057268582358, guid: a8e61023942f218479cc699aa11f145f,
       type: 3}
     CoughParent: {fileID: 0}
-    KetchupPrefab: {fileID: 385844514468773299, guid: e0e42035446f2fd4f9877d9b32f35df3,
+    KetchupPrefab: {fileID: 5418319039797494026, guid: e0e42035446f2fd4f9877d9b32f35df3,
       type: 3}
     KetchupParent: {fileID: 0}
 --- !u!195 &5360201768869175082
