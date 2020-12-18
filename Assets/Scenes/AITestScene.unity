@@ -1971,6 +1971,11 @@ PrefabInstance:
       propertyPath: ActionMappings.KetchupParent
       value: 
       objectReference: {fileID: 661336324}
+    - target: {fileID: 5360201768869175083, guid: 5e97667112ee5a845bccaf479df52001,
+        type: 3}
+      propertyPath: ActionCosts.ActionMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5360201768869175086, guid: 5e97667112ee5a845bccaf479df52001,
         type: 3}
       propertyPath: m_LocalPosition.x
