@@ -5,6 +5,8 @@ namespace Gameplay.SceneObjects
 {
     public abstract class SceneObject : MonoBehaviour
     {
+        public ICharacter Creator;
+
         /// <summary>
         /// Defines interaction with the certain object in the scene.
         /// </summary>

@@ -2,7 +2,6 @@
 using Gameplay.Ailments;
 using Gameplay.SceneObjects;
 using System.Collections.Generic;
-using Core;
 using AI.Enemy;
 
 namespace Gameplay.Characters
@@ -207,6 +206,21 @@ namespace Gameplay.Characters
         public void SetDeathClock(float deathClock)
         {
             PommesEater.DeathClock = deathClock;
+        }
+
+        public void AddBait(GameObject bait)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void RemoveBait(GameObject bait)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        List<GameObject> ICharacter.GetBaits()
+        {
+            throw new System.NotImplementedException();
         }
         #endregion
     }

@@ -41,6 +41,9 @@ namespace Gameplay.Actions
             Vector3 baitPosition = characterTransform.position - (characterTransform.up * 0.5f);
             // Create a bait
             GameObject bait = Object.Instantiate(BaitPrefab, baitPosition, characterTransform.rotation);
+            // Set the creator of the bait
+            bait.GetComponent<PommesBatch>().Creator = character;
+            character.AddBait(bait);
             // Set bait in the list of baits
             bait.transform.SetParent(BaitParent);
         }

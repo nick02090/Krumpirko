@@ -22,6 +22,8 @@ namespace Gameplay.Characters
         public ActionCosts ActionCosts;
         public ActionMappings ActionMappings;
 
+        public List<GameObject> Baits { get; private set; }
+
         /// <summary>
         /// Holds the information about ailments.
         /// </summary>
@@ -43,6 +45,8 @@ namespace Gameplay.Characters
             pommesEater.onDeath += OnEaterDeath;
             pommesEater.onHotSauce += OnHotSauce;
             CurrentCollider = null;
+            // Initialize baits
+            Baits = new List<GameObject>();
         }
 
         public bool CanExecuteAction(ActionType actionType)
@@ -265,6 +269,21 @@ namespace Gameplay.Characters
         public int GetMaxPommesCapacity()
         {
             return pommesEater.MaxPommesCapacity;
+        }
+
+        public void AddBait(GameObject bait)
+        {
+            Baits.Add(bait);
+        }
+
+        public void RemoveBait(GameObject bait)
+        {
+            Baits.Remove(bait);
+        }
+
+        public List<GameObject> GetBaits()
+        {
+            return Baits;
         }
         #endregion
     }

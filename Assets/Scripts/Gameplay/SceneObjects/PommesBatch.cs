@@ -41,6 +41,7 @@ namespace Gameplay.SceneObjects
         {
             if (Size <= 0)
             {
+                Creator.RemoveBait(gameObject);
                 Destroy(gameObject);
             }
         }

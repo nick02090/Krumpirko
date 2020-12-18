@@ -1,4 +1,5 @@
 ﻿using Gameplay.Ailments;
+using Gameplay.SceneObjects;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,5 +28,8 @@ namespace Gameplay.Characters
         List<Ailment> GetAilments();
         void AddGum();
         bool HasTag(string tag);
+        void AddBait(GameObject bait);
+        void RemoveBait(GameObject bait);
+        List<GameObject> GetBaits();
     }
 }
