@@ -11,6 +11,11 @@ namespace Gameplay.Characters
     public class EnemyCharacter : MonoBehaviour, ICharacter
     {
         /// <summary>
+        /// Determines the speed of the enemy movement.
+        /// </summary>
+        public float MovementSpeed = 2.0f;
+
+        /// <summary>
         /// Holds the information about ailments.
         /// </summary>
         public AilmentHandler AilmentHandler { get; private set; }
@@ -91,6 +96,7 @@ namespace Gameplay.Characters
         /// </summary>
         private void OnEaterDeath()
         {
+            // TODO: Add super fancy death particle system
             //Destroy(gameObject);
         }
 
@@ -109,13 +115,12 @@ namespace Gameplay.Characters
         #region ICharacter
         public float GetMovementSpeed()
         {
-            // throw new System.NotImplementedException();
-            return 2.0f;
+            return MovementSpeed;
         }
 
         public void SetMovementSpeed(float movementSpeed)
         {
-            throw new System.NotImplementedException();
+            MovementSpeed = movementSpeed;
         }
 
         public Transform GetTransform()
