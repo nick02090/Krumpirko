@@ -7,7 +7,7 @@ namespace Gameplay.Ailments
 {
     public class AilmentHandler : MonoBehaviour
     {
-        public delegate void OnAilmentInflict();
+        public delegate void OnAilmentInflict(Ailment ailment);
         public OnAilmentInflict onAilmentInflict;
 
         public AilmentImmunity AilmentImmunity;
@@ -43,7 +43,7 @@ namespace Gameplay.Ailments
             {
                 ailment.Activate(character);
                 Ailments.Add(ailment);
-                onAilmentInflict?.Invoke();
+                onAilmentInflict?.Invoke(ailment);
             }
         }
 
