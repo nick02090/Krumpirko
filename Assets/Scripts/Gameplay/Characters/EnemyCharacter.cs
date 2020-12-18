@@ -4,6 +4,7 @@ using Gameplay.Ailments;
 using Gameplay.Actions;
 using Gameplay.SceneObjects;
 using Core;
+using AI.Enemy;
 
 namespace Gameplay.Characters
 {
@@ -20,12 +21,17 @@ namespace Gameplay.Characters
         /// Holds the information about eating.
         /// </summary>
         private PommesEater pommesEater;
+        /// <summary>
+        /// Holds the information necessary for enemy AI.
+        /// </summary>
+        public EnemyAIParameters aiParameters {get; set;}
 
         private void Start()
         {
             // Initialize member variables
             ailments = new List<Ailment>();
             pommesEater = GetComponent<PommesEater>();
+            aiParameters = EnemyAIParameters.Instance;
             // Subscribe to eater delegates
             pommesEater.onStateChange += OnEaterStateChange;
             pommesEater.onDeath += OnEaterDeath;
@@ -111,7 +117,8 @@ namespace Gameplay.Characters
 
         public float GetMovementSpeed()
         {
-            throw new System.NotImplementedException();
+            // throw new System.NotImplementedException();
+            return 2.0f;
         }
 
         public void SetMovementSpeed(float movementSpeed)
