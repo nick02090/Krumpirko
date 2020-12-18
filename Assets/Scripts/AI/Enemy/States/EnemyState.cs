@@ -1,15 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Gameplay.Characters;
 
-namespace AI.Enemy
+namespace AI.Enemy.States
 {
-    public class EnemyState
+    public class EnemyState : IState
     {
         public enum STATE
         {
-            IDLE, CHASE, EATING, WANDER, ENTER
+            IDLE, CHASE, EATING, WANDER, ENTER, BAIT, BURN, FEAR, HAPPY, STARVING
         };
 
         public enum EVENT
@@ -20,7 +19,7 @@ namespace AI.Enemy
         // To store the name of the STATE
         public STATE name;
         // To store the stage the EVENT is in
-        protected EVENT stage;
+        public EVENT stage;
         // To store the NPC game object
         protected GameObject enemy;
         // To store the Animator component
@@ -31,27 +30,46 @@ namespace AI.Enemy
         protected EnemyState nextState;
         // To store the enemy NavMeshAgent component
         protected NavMeshAgent agent;
+        // To store enemy characteristics
+        protected EnemyCharacter enemyCharacter;
+        // Stores AI related parameters
+        protected EnemyAIParameters aiParameters;
+        // Shared context for tracking ailments
+        protected AilmentContext ailmentContext;
 
-        protected float hearDist = 3.0f;
-        protected float visDist = 10.0f;
-        protected float visAngle = 45.0f;
-        protected float stealDist = 2.0f;
+        protected float visDist;
+        protected float stealDist;
+        protected float hearDist;
+        protected float visAngle;
 
-        public EnemyState(GameObject _enemy, NavMeshAgent _agent, Animator _anim, Transform _player)
+        public EnemyState(GameObject _enemy, NavMeshAgent _agent, Animator _anim, Transform _player, EnemyCharacter _enemyCharacter)
         {
             enemy = _enemy;
             agent = _agent;
             anim = _anim;
             player = _player;
+            enemyCharacter = _enemyCharacter;
 
-            stage = EVENT.ENTER;
+            // if(_ailmentContext != null)
+            //     ailmentContext = _ailmentContext;
+            // else
+            //     ailmentContext = new AilmentContext();
+
+            aiParameters = enemyCharacter.aiParameters;
+
+            visDist = aiParameters.normalVisDist;
+            stealDist = aiParameters.normalStealDist;
+            hearDist = aiParameters.normalHearDist;
+            visAngle = aiParameters.normalVisAngle;
         }
+
+        // enemyCharacter.AilmentHandler.onAilmentInflict += NazivMetodeUnutarAI;
 
         public virtual void Enter() { stage = EVENT.UPDATE; }
         public virtual void Update() { stage = EVENT.UPDATE; }
         public virtual void Exit() { stage = EVENT.EXIT; }
 
-        public EnemyState Process()
+        public IState Process()
         {
             if (stage == EVENT.ENTER) Enter();
             if (stage == EVENT.UPDATE) Update();
@@ -63,16 +81,22 @@ namespace AI.Enemy
             return this;
         }
 
-        protected bool CanSensePlayer() 
+        protected bool canHearPlayer()
         {
             Vector3 direction = player.position - enemy.transform.position;
-            float angle = Vector3.Angle(direction, enemy.transform.forward);
 
-            if((direction.magnitude < visDist && angle < visAngle) || direction.magnitude < hearDist)
-            {
+            if(direction.magnitude <= hearDist) {
                 return true;
             }
             return false;
+        }
+
+        protected void turnTowardsPlayer(float rotationSpeed)
+        {
+            Vector3 direction = (player.position - enemy.transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+
+            enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
         }
 
         protected bool CanSeePlayer()
@@ -102,6 +126,11 @@ namespace AI.Enemy
         {
             Vector3 randomOffset = new Vector3(Random.Range(low, high), 0f, Random.Range(low, high));
             agent.SetDestination(enemy.transform.position + randomOffset); 
+        }
+
+        protected bool RandomChance(float chance)
+        {
+            return Random.Range(0, 100) < chance;
         }
 
     }

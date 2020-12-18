@@ -1,16 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using AI.Enemy;
+﻿using UnityEngine;
 
 namespace AI
 {
     public class FsmAI
     {
-        EnemyState currentState;
+        IState currentState;
 
-        public FsmAI(EnemyState startingState)
-        {
+        public FsmAI(IState startingState)
+        {   
             currentState = startingState;
         }
 
