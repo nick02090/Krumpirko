@@ -31,5 +31,6 @@ namespace Gameplay.Characters
         void AddBait(GameObject bait);
         void RemoveBait(GameObject bait);
         List<GameObject> GetBaits();
+        float GetTimeUntilDeath();
     }
 }

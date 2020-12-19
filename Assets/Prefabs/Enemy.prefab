@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba73cd6f916db304b834e2097ce7e465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MovementSpeed: 2
 --- !u!114 &3765476901088098876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EatingRate: 2
   DeathClock: 20
-  MaxPommesCapacity: 1
+  MaxPommesCapacity: 2
   EatsHotSauce: 1
   ShowCapacityChanges: 0
   PommesCapacity: 0

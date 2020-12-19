@@ -417,7 +417,12 @@ PrefabInstance:
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: spawnigCapacity
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
+        type: 3}
+      propertyPath: startTimeOffset
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 762a8e57a0e0c644680b2763251cbc71, type: 3}
@@ -1686,7 +1691,7 @@ PrefabInstance:
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: spawnigCapacity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 762a8e57a0e0c644680b2763251cbc71, type: 3}
@@ -2896,6 +2901,16 @@ PrefabInstance:
         type: 3}
       propertyPath: prefabParent
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
+        type: 3}
+      propertyPath: spawnPeriod
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
+        type: 3}
+      propertyPath: spawnigCapacity
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 762a8e57a0e0c644680b2763251cbc71, type: 3}

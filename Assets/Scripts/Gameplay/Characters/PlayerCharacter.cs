@@ -285,6 +285,11 @@ namespace Gameplay.Characters
         {
             return Baits;
         }
+
+        public float GetTimeUntilDeath()
+        {
+            return pommesEater.GetTimeUntilDeath();
+        }
         #endregion
     }
 }

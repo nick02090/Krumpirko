@@ -20,8 +20,8 @@ namespace Control
 
             GameObject player = GameObject.FindWithTag("Player");
 
-            EnemyState startingState = new StateEnter(gameObject, agent, anim, player.transform, enemyCharacter);
-            // EnemyContext context = new EnemyContext(gameObject, agent, anim, player.transform, enemyCharacter);
+            EnemyState startingState = new StateEnter(gameObject, agent, anim, player, enemyCharacter);
+
             ai = new FsmAI(startingState);
         }
 

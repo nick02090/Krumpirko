@@ -8,8 +8,9 @@ namespace AI.Enemy.States
     {
 
         private float startTime;
+        private float eatingTime;
 
-        public StateEating(GameObject _enemy, NavMeshAgent _agent, Animator _anim, Transform _player, EnemyCharacter _enemyCharacter)
+        public StateEating(GameObject _enemy, NavMeshAgent _agent, Animator _anim, GameObject _player, EnemyCharacter _enemyCharacter)
                     : base(_enemy, _agent, _anim, _player, _enemyCharacter)
         {
             name = STATE.EATING;
@@ -17,30 +18,38 @@ namespace AI.Enemy.States
 
         public override void Enter()
         {
-            Debug.Log("I'm in Eating");
-
             startTime = Time.time;
+            int pommesNum = enemyCharacter.GetMaxPommesCapacity() - enemyCharacter.GetLeftPommesCapacity();
+            eatingTime =  pommesNum * enemyCharacter.GetEatingRate() + aiParameters.MinEatingTime;
+
             agent.isStopped = false;
             
-            SetRandomDestination(-aiParameters.eatingRange, aiParameters.eatingRange);
+            SetRandomDestinationFromRing(aiParameters.EatingMinRingDistance, aiParameters.EatingMaxRingDistance);
 
             base.Enter();
         }
 
         public override void Update()
         {
-            agent.speed = enemyCharacter.GetMovementSpeed() * aiParameters.eatingSpeedMultiplayer;
-            
-            if (Time.time - startTime > aiParameters.eatingTime)
+            if (enemyCharacter.IsAilmentActive())
             {
-                nextState = new StateIdle(enemy, agent, anim, player, enemyCharacter);
+                nextState = GetAilmentState();
                 stage = EVENT.EXIT;
+            }
+            else
+            {            
+                agent.speed = enemyCharacter.GetMovementSpeed() * aiParameters.EatingSpeedMultiplayer;
+
+                if (Time.time - startTime > eatingTime)
+                {
+                    nextState = new StateIdle(enemy, agent, anim, player, enemyCharacter);
+                    stage = EVENT.EXIT;
+                }
             }
         }
 
         public override void Exit()
         {
-            // anim.ResetTrigger("isEating");
             base.Exit();
         }
     }
