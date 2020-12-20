@@ -126,7 +126,7 @@ namespace Gameplay.Characters
         private void OnEaterDeath()
         {
             // TODO: Add super fancy death particle system
-            // Destroy(gameObject);
+            Destroy(gameObject);
         }
 
         /// <summary>

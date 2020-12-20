@@ -10,7 +10,7 @@ namespace AI.Enemy.States
     {
         public enum STATE
         {
-            IDLE, CHASE, EATING, WANDER, ENTER, BAIT, BURN, FEAR, HAPPY, STARVING
+            IDLE, CHASE, EATING, WANDER, ENTER, BAIT, FEAR, STARVING
         };
 
         public enum EVENT
@@ -166,8 +166,8 @@ namespace AI.Enemy.States
 
         protected bool IsStarving()
         {
-            return false;
-            // return enemyCharacter.GetTimeUntilDeath() <= aiParameters.StarvationTriggerTime;
+            // return false;
+            return enemyCharacter.GetTimeUntilDeath() <= aiParameters.StarvationTriggerTime;
         }
 
         protected EnemyState GetAilmentState()
