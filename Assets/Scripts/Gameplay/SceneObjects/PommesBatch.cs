@@ -22,8 +22,8 @@ namespace Gameplay.SceneObjects
             {
                 int remainingPommes = character.GetLeftPommesCapacity();
                 // Calculate the total number of pommes and the number of hot pommes inside that total
-                int numberOfPommes = Mathf.Clamp(remainingPommes, 0, Size);
-                int numberOfHotPommes = Mathf.Clamp(remainingPommes, 0, HotSauceSize);
+                int numberOfPommes = Mathf.Clamp(Size, 0, remainingPommes);
+                int numberOfHotPommes = Mathf.Clamp(HotSauceSize, 0, remainingPommes);
                 // NOTE: This is possible due to the fact that the HotSauceSize is always less or equal to Size
                 character.AddPommes(numberOfPommes, numberOfHotPommes);
                 // Update pommes numbers inside this batch

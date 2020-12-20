@@ -126,7 +126,7 @@ namespace Gameplay
             }
 
             // Update State
-            if (PommesCapacity <= 0 || (EatsHotSauce && HotSaucePommesCapacity <= 0 && PommesCapacity <= 0))
+            if ((!EatsHotSauce && PommesCapacity <= 0) || (EatsHotSauce && HotSaucePommesCapacity <= 0 && PommesCapacity <= 0))
             {
                 ChangeState(EaterState.Starving);
             }
@@ -190,16 +190,16 @@ namespace Gameplay
         {
             if (CanHold(totalNumberOfPommes))
             {
-                HotSaucePommesCapacity += numberOfHotPommes;
-                PommesCapacity += totalNumberOfPommes - numberOfHotPommes;
+                HotSaucePommesCapacity += Mathf.Max(numberOfHotPommes, 0);
+                PommesCapacity += Mathf.Max(totalNumberOfPommes - numberOfHotPommes, 0);
                 ShowChange(totalNumberOfPommes, true);
             }
         }
 
         public void RemovePommes(int totalNumberOfPommes, int numberOfHotPommes)
         {
-            HotSaucePommesCapacity -= numberOfHotPommes;
-            PommesCapacity -= totalNumberOfPommes - numberOfHotPommes;
+            HotSaucePommesCapacity -= Mathf.Max(numberOfHotPommes, 0);
+            PommesCapacity -= Mathf.Max(totalNumberOfPommes - numberOfHotPommes, 0);
             ShowChange(totalNumberOfPommes, false);
         }
 
@@ -227,7 +227,7 @@ namespace Gameplay
         /// <summary>
         /// Number of the left capacity.
         /// </summary>
-        public int LeftCapacity => MaxPommesCapacity - (PommesCapacity + HotSaucePommesCapacity);
+        public int LeftCapacity => Mathf.Max(MaxPommesCapacity - (PommesCapacity + HotSaucePommesCapacity), 0);
         /// <summary>
         /// Determines whether the eater can hold extra given amount of food.
         /// </summary>

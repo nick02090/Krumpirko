@@ -192,12 +192,12 @@ namespace Gameplay.Characters
         public int BaitWithHotSauce()
         {
             // Calculate how many pommes you have with hot sauce on them
-            int numberOfHotSaucePommes = Mathf.Clamp(pommesEater.HotSaucePommesCapacity, 0, PommesBatch.SIZE);
+            int numberOfHotSaucePommes = Mathf.Clamp(PommesBatch.SIZE, 0, pommesEater.HotSaucePommesCapacity);
             // Since you lost some from the capacity but you actually used those with hot sauce as a bait
             // recover the lost pommes in the capacity
             pommesEater.AddPommes(numberOfHotSaucePommes, 0);
             // Remove those from the count
-            pommesEater.RemovePommes(numberOfHotSaucePommes, numberOfHotSaucePommes);
+            pommesEater.RemovePommes(PommesBatch.SIZE, numberOfHotSaucePommes);
             return numberOfHotSaucePommes;
         }
 

@@ -68,13 +68,14 @@ namespace Gameplay.Characters
                     playersPommesEater.RemoveGum();
                     InflictWith(new HappyAilment());
                 }
-                else if (playersPommesEater.PommesCapacity > 0)
+                else if (playersPommesEater.PommesCapacity > 0 || playersPommesEater.HotSaucePommesCapacity  > 0)
                 {
                     int remainingPommes = PommesEater.LeftCapacity;
-                    int numberOfTakenPommes = Mathf.Clamp(remainingPommes, 0, playersPommesEater.PommesCapacity);
+                    int numberOfTakenPommes = Mathf.Clamp(playersPommesEater.PommesCapacity, 0, remainingPommes);
                     int numberOfHotPommes = Mathf.Clamp(playersPommesEater.HotSaucePommesCapacity, 0, remainingPommes);
+                    numberOfTakenPommes += numberOfTakenPommes == 0 ? numberOfHotPommes : 0;
                     PommesEater.AddPommes(numberOfTakenPommes, numberOfHotPommes);
-                    playersPommesEater.RemovePommes(numberOfTakenPommes, 0);
+                    playersPommesEater.RemovePommes(numberOfTakenPommes, numberOfHotPommes);
                 }
             }
             // Collision with pickable object
