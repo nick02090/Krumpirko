@@ -5,17 +5,17 @@ using UnityEngine;
 
 namespace Gameplay
 {
+    public enum EaterState
+    {
+        [Description("Eating")]
+        Eating,
+        [Description("Starving")]
+        Starving
+    };
+
     public class PommesEater : MonoBehaviour
     {
-        public enum EaterState
-        {
-            [Description("Eating")]
-            Eating,
-            [Description("Starving")]
-            Starving
-        };
-
-        public delegate void StateChange();
+        public delegate void StateChange(EaterState state);
         public StateChange onStateChange;
 
         public delegate void Death();
@@ -23,6 +23,9 @@ namespace Gameplay
 
         public delegate void HotSauce();
         public HotSauce onHotSauce;
+
+        public delegate void PommesEaten();
+        public PommesEaten onPommesEaten;
 
         /// <summary>
         /// Seconds per pommes.
@@ -52,7 +55,7 @@ namespace Gameplay
         /// <summary>
         /// Number of eaten pommes.
         /// </summary>
-        public int PommesEaten; // TODO: set to private once you finished debugging
+        public int PommesEatenCapacity; // TODO: set to private once you finished debugging
         /// <summary>
         /// Current capacity of the pommes that have hot sauce over itself.
         /// </summary>
@@ -77,7 +80,7 @@ namespace Gameplay
             // Initialize member variables
             ChangeState(EaterState.Starving);
             PommesCapacity = 0;
-            PommesEaten = 0;
+            PommesEatenCapacity = 0;
             HotSaucePommesCapacity = 0;
             GumCapacity = 0;
             // Set message popup show/hide flag
@@ -111,7 +114,9 @@ namespace Gameplay
                     // Reset timer
                     eatingTimer = 0.0f;
                     // Update pommes eaten number
-                    PommesEaten++;
+                    PommesEatenCapacity++;
+                    // Invoke the subsribers on eater eating a pommes
+                    onPommesEaten?.Invoke();
                 }
             }
 
@@ -148,7 +153,7 @@ namespace Gameplay
             {
                 State = state;
                 // Invoke the subscribers on state change
-                onStateChange?.Invoke();
+                onStateChange?.Invoke(State);
             }
         }
 
@@ -165,7 +170,7 @@ namespace Gameplay
                     PommesCapacity -= actionCost;
                     break;
                 case ActionCostType.PommesEaten:
-                    PommesEaten -= actionCost;
+                    PommesEatenCapacity -= actionCost;
                     break;
                 default:
                     break;
@@ -180,7 +185,7 @@ namespace Gameplay
                 case ActionCostType.PommesCapacity:
                     return actionCost <= PommesCapacity;
                 case ActionCostType.PommesEaten:
-                    return actionCost <= PommesEaten;
+                    return actionCost <= PommesEatenCapacity;
                 default:
                     return false;
             }

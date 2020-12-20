@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Gameplay.Characters
 {
-    // PlayerController and EnemyController should implement ICharacter
     public interface ICharacter
     {
         void SetMovementSpeed(float movementSpeed);
@@ -31,5 +30,7 @@ namespace Gameplay.Characters
         void AddBait(GameObject bait);
         void RemoveBait(GameObject bait);
         List<GameObject> GetBaits();
+        int GetCurrentScore();
+        int GetScore(ScoreType scoreType);
     }
 }

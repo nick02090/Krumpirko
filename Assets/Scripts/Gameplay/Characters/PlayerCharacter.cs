@@ -8,6 +8,7 @@ namespace Gameplay.Characters
 {
     [RequireComponent(typeof(PommesEater))]
     [RequireComponent(typeof(AilmentHandler))]
+    [RequireComponent(typeof(ScoreHandler))]
     public class PlayerCharacter : MonoBehaviour, ICharacter
     {
         /// <summary>
@@ -21,9 +22,14 @@ namespace Gameplay.Characters
 
         public ActionCosts ActionCosts;
         public ActionMappings ActionMappings;
+        public ScoreSystem ScoreSystem;
 
         public List<GameObject> Baits { get; private set; }
 
+        /// <summary>
+        /// Holds the information about score.
+        /// </summary>
+        private ScoreHandler scoreHandler;
         /// <summary>
         /// Holds the information about ailments.
         /// </summary>
@@ -38,12 +44,14 @@ namespace Gameplay.Characters
         private void Start()
         {
             // Initialize member variables
+            scoreHandler = GetComponent<ScoreHandler>();
             ailmentHandler = GetComponent<AilmentHandler>();
             pommesEater = GetComponent<PommesEater>();
             // Subscribe to eater delegates
             pommesEater.onStateChange += OnEaterStateChange;
             pommesEater.onDeath += OnEaterDeath;
             pommesEater.onHotSauce += OnHotSauce;
+            pommesEater.onPommesEaten += OnPommesEaten;
             CurrentCollider = null;
             // Initialize baits
             Baits = new List<GameObject>();
@@ -70,6 +78,8 @@ namespace Gameplay.Characters
                 pommesEater.ExecuteAction(actionCost, actionCostType);
                 // Execute the action
                 action.Execute(this);
+                // Update the score
+                scoreHandler.OnActionExecuted();
             }
             else
             {
@@ -144,10 +154,9 @@ namespace Gameplay.Characters
         /// <summary>
         /// Called when eaters state has change (Eating -> Starving and vice versa)
         /// </summary>
-        private void OnEaterStateChange()
+        private void OnEaterStateChange(EaterState eaterState)
         {
-            // TODO: Update player properties so they match the current eater state.
-            //Debug.Log($"Player eater has changed state to {pommesEater.State.DescriptionAttr()}.");
+            scoreHandler.OnEaterStateChange(eaterState);
         }
 
         /// <summary>
@@ -159,6 +168,14 @@ namespace Gameplay.Characters
             {
                 ailmentHandler.AddAilment(new BurnAilment());
             }
+        }
+
+        /// <summary>
+        /// Called when eater eats a pommes.
+        /// </summary>
+        private void OnPommesEaten()
+        {
+            scoreHandler.OnPommesEaten();
         }
         #endregion
 
@@ -284,6 +301,16 @@ namespace Gameplay.Characters
         public List<GameObject> GetBaits()
         {
             return Baits;
+        }
+
+        public int GetCurrentScore()
+        {
+            return scoreHandler.Score;
+        }
+
+        public int GetScore(ScoreType scoreType)
+        {
+            return ScoreSystem.GetScore(scoreType);
         }
         #endregion
     }

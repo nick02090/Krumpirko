@@ -99,7 +99,7 @@ namespace Gameplay.Characters
         /// <summary>
         /// Called when eater hasn't eaten anything for a while.
         /// </summary>
-        private void OnEaterStateChange()
+        private void OnEaterStateChange(EaterState eaterState)
         {
             //Debug.Log($"Enemy eater has changed state to {pommesEater.State.DescriptionAttr()}.");
         }
@@ -237,6 +237,16 @@ namespace Gameplay.Characters
         }
 
         List<GameObject> ICharacter.GetBaits()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int GetCurrentScore()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int GetScore(ScoreType scoreType)
         {
             throw new System.NotImplementedException();
         }
