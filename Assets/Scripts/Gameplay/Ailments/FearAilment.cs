@@ -29,6 +29,11 @@ namespace Gameplay.Ailments
             return AilmentType.Fear;
         }
 
+        public override Sprite GetSprite()
+        {
+            return Resources.Load<Sprite>("AilmentSprites/FearAilmentSprite");
+        }
+
         public override void Revert(ICharacter character)
         {
             character.SetEatingRate(previousRate);

@@ -28,6 +28,11 @@ namespace Gameplay.Ailments
             return AilmentType.Happy;
         }
 
+        public override Sprite GetSprite()
+        {
+            return Resources.Load<Sprite>("AilmentSprites/HappyAilmentSprite");
+        }
+
         public override void Revert(ICharacter character)
         {
             // Muahaha, nothing happens!

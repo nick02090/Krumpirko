@@ -1,5 +1,6 @@
 ﻿using Gameplay.Characters;
 using System.ComponentModel;
+using UnityEngine;
 
 namespace Gameplay.Ailments
 {
@@ -38,6 +39,8 @@ namespace Gameplay.Ailments
         }
 
         public abstract AilmentType GetAilmentType();
+
+        public abstract Sprite GetSprite();
         
         /// <summary>
         /// Activates the ailment properties on the given character.

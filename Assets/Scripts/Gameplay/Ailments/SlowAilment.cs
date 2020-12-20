@@ -1,4 +1,5 @@
 ﻿using Gameplay.Characters;
+using UnityEngine;
 
 namespace Gameplay.Ailments
 {
@@ -27,6 +28,11 @@ namespace Gameplay.Ailments
         public override AilmentType GetAilmentType()
         {
             return AilmentType.Slow;
+        }
+
+        public override Sprite GetSprite()
+        {
+            return Resources.Load<Sprite>("AilmentSprites/SlowAilmentSprite");
         }
 
         public override void Revert(ICharacter character)

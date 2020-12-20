@@ -3,6 +3,7 @@ using Gameplay.Ailments;
 using Gameplay.SceneObjects;
 using System.Collections.Generic;
 using AI.Enemy;
+using Core;
 
 namespace Gameplay.Characters
 {
@@ -28,6 +29,8 @@ namespace Gameplay.Characters
         /// </summary>
         public EnemyAIParameters aiParameters {get; set;}
 
+        public ImagePopup ImagePopup;
+
         private void Start()
         {
             // Initialize member variables
@@ -38,6 +41,8 @@ namespace Gameplay.Characters
             PommesEater.onStateChange += OnEaterStateChange;
             PommesEater.onDeath += OnEaterDeath;
             PommesEater.onHotSauce += OnHotSauce;
+            // Subscribe to ailment handler delegates
+            AilmentHandler.onAilmentInflict += OnAilmentInflict;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -81,6 +86,13 @@ namespace Gameplay.Characters
                 }
             }
         }
+
+        #region Ailment handler delegates
+        private void OnAilmentInflict(Ailment ailment)
+        {
+            ImagePopup.ResetTimer(ailment.GetSprite());
+        }
+        #endregion
 
         #region Pommes eater delegates
         /// <summary>
