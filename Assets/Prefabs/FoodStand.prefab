@@ -369,6 +369,7 @@ MonoBehaviour:
   TimeMultiplier: 2
   BatchOfPommesSize: 10
   ShowTimer: 1
+  MaxTimeUntilNextBatch: 99
   MessagePopup: {fileID: 6561370880589902484}
 --- !u!1001 &6345142586327888625
 PrefabInstance:

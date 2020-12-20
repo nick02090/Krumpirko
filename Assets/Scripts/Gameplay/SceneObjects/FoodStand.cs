@@ -9,6 +9,7 @@ namespace Gameplay.SceneObjects
         public float TimeMultiplier = 2.0f;
         public int BatchOfPommesSize = 5;
         public bool ShowTimer = true;
+        public float MaxTimeUntilNextBatch = 99.0f;
 
         public MessagePopup MessagePopup;
 
@@ -90,7 +91,7 @@ namespace Gameplay.SceneObjects
                 // Add new batch of pommes
                 NumberOfPommes += BatchOfPommesSize;
                 // Increase the timeUntilNextBatch for every new batch
-                TimeUntilNextBatch *= TimeMultiplier;
+                TimeUntilNextBatch = Mathf.Clamp(TimeUntilNextBatch * TimeMultiplier, TimeUntilNextBatch, MaxTimeUntilNextBatch);
                 // Reset the timer
                 cookingTimer = 0.0f;
                 // Play the steam particle system
