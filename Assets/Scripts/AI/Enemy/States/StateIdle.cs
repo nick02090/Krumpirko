@@ -8,7 +8,7 @@ namespace AI.Enemy.States
     {
         private float startTime;
 
-        public StateIdle(GameObject _enemy, NavMeshAgent _agent, Animator _anim, Transform _player, EnemyCharacter _enemyCharacter)
+        public StateIdle(GameObject _enemy, NavMeshAgent _agent, Animator _anim, GameObject _player, EnemyCharacter _enemyCharacter)
                     : base(_enemy, _agent, _anim, _player, _enemyCharacter)
         {
             name = STATE.IDLE;
@@ -23,21 +23,34 @@ namespace AI.Enemy.States
         }
 
         public override void Update()
-        {
-            if(canHearPlayer())
+        {           
+            if (AreThereBaits()) 
             {
-                turnTowardsPlayer(aiParameters.normalRotationSpeed);
+                if (GetClosestBaitInRange() != null) 
+                {
+                    nextState = new StateBait(enemy, agent, anim, player, enemyCharacter);
+                    stage = EVENT.EXIT;
+                    return;
+                }
             }
 
-            if(CanSeePlayer())
+            if (IsStarving()) {
+                    nextState = new StateStarving(enemy, agent, anim, player, enemyCharacter);
+                    stage = EVENT.EXIT;
+            }            
+            else if (CanSeePlayer())
             {
                 nextState = new StateChase(enemy, agent, anim, player, enemyCharacter);
                 stage = EVENT.EXIT;
             }
-            else if(Time.time - startTime > aiParameters.idlingTime)
+            else if (Time.time - startTime > aiParameters.IdlingTime)
             {
                 nextState = new StateWander(enemy, agent, anim, player, enemyCharacter);
                 stage = EVENT.EXIT;
+            }
+            else if (canHearPlayer())
+            {
+                turnTowardsPlayer(aiParameters.SLowRotationSpeed);
             }
         }
 

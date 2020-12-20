@@ -8,7 +8,7 @@ namespace AI.Enemy.States
     {
         private float startTime;
 
-        public StateEnter(GameObject _enemy, NavMeshAgent _agent, Animator _anim, Transform _player, EnemyCharacter _enemyCharacter)
+        public StateEnter(GameObject _enemy, NavMeshAgent _agent, Animator _anim, GameObject _player, EnemyCharacter _enemyCharacter)
                     : base(_enemy, _agent, _anim, _player, _enemyCharacter)
         {
             name = STATE.ENTER;
@@ -20,36 +20,57 @@ namespace AI.Enemy.States
             agent.isStopped = false;
 
             Vector3 randomVector = new Vector3(
-                Random.Range(-aiParameters.enteringRange, aiParameters.enteringRange), 
+                Random.Range(-aiParameters.EnteringRange, aiParameters.EnteringRange), 
                 0f, 
-                Random.Range(-aiParameters.enteringRange, aiParameters.enteringRange));
+                Random.Range(-aiParameters.EnteringRange, aiParameters.EnteringRange));
             agent.SetDestination(randomVector); 
+
+            hearDist = aiParameters.EnteringHearDist;
 
             base.Enter();
         }
 
         public override void Update()
         {
-            if(canHearPlayer())
+            if (Time.time - startTime > aiParameters.MinEnteringTime)
             {
-                turnTowardsPlayer(aiParameters.normalRotationSpeed);
-            }
+                if (enemyCharacter.IsAilmentActive())
+                {
+                    nextState = GetAilmentState();
+                    stage = EVENT.EXIT;
+                    return;
+                }
+                
+                if (AreThereBaits()) 
+                {
+                    if (GetClosestBaitInRange() != null) 
+                    {
+                        nextState = new StateBait(enemy, agent, anim, player, enemyCharacter);
+                        stage = EVENT.EXIT;
+                        return;
+                    }
+                }
 
-            if (CanSeePlayer())
-            {
-                nextState = new StateChase(enemy, agent, anim, player, enemyCharacter);
-                stage = EVENT.EXIT;
-            }
-            else if(Time.time - startTime > aiParameters.enteringTime && agent.remainingDistance < aiParameters.enteringRemainingDis)
-            {
-                nextState = new StateIdle(enemy, agent, anim, player, enemyCharacter);
-                stage = EVENT.EXIT;
+                if (IsStarving()) {
+                        nextState = new StateStarving(enemy, agent, anim, player, enemyCharacter);
+                        stage = EVENT.EXIT;
+                }
+                else if (CanSeePlayer())
+                {
+                    nextState = new StateChase(enemy, agent, anim, player, enemyCharacter);
+                    stage = EVENT.EXIT;
+                }
+                else if (canHearPlayer() || agent.remainingDistance < aiParameters.EnteringRemainingDistance)
+                {
+                    nextState = new StateIdle(enemy, agent, anim, player, enemyCharacter);
+                    stage = EVENT.EXIT;
+                }
             }
         }
 
         public override void Exit()
         {
-            // anim.ResetTrigger("isIdle");
+            hearDist = aiParameters.NormalHearDist;
             base.Exit();
         }
     }

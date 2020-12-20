@@ -15,7 +15,6 @@ namespace Gameplay.Characters
         /// Determines the speed of the enemy movement.
         /// </summary>
         public float MovementSpeed = 2.0f;
-
         /// <summary>
         /// Holds the information about ailments.
         /// </summary>
@@ -30,6 +29,8 @@ namespace Gameplay.Characters
         public EnemyAIParameters aiParameters {get; set;}
 
         public ImagePopup ImagePopup;
+        private Ailment activeAilment = null;
+
 
         private void Start()
         {
@@ -43,6 +44,7 @@ namespace Gameplay.Characters
             PommesEater.onHotSauce += OnHotSauce;
             // Subscribe to ailment handler delegates
             AilmentHandler.onAilmentInflict += OnAilmentInflict;
+            AilmentHandler.onAilmentInflict += AilmentInflicted;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -94,6 +96,31 @@ namespace Gameplay.Characters
             ImagePopup.ResetTimer(ailment.GetSprite());
         }
         #endregion
+        
+        #region AI
+        private void AilmentInflicted(Ailment ailment)
+        {
+            if (ailment.GetAilmentType() == AilmentType.Fear) 
+            {
+                activeAilment = ailment;
+            }
+        }
+
+        public Ailment GetActiveAilment()
+        {
+            return activeAilment;
+        }
+
+        public bool IsAilmentActive()
+        {
+            return activeAilment != null;
+        }
+
+        public void ResetActiveAilment()
+        {
+            activeAilment = null;
+        }
+        #endregion
 
         #region Pommes eater delegates
         /// <summary>
@@ -110,7 +137,7 @@ namespace Gameplay.Characters
         private void OnEaterDeath()
         {
             // TODO: Add super fancy death particle system
-            //Destroy(gameObject);
+            Destroy(gameObject);
         }
 
         /// <summary>
@@ -269,6 +296,11 @@ namespace Gameplay.Characters
         public int GetHotSauceCapacity()
         {
             throw new System.NotImplementedException();
+        }
+        
+        public float GetTimeUntilDeath()
+        {
+            return PommesEater.GetTimeUntilDeath();
         }
         #endregion
     }

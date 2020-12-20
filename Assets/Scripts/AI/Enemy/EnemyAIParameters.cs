@@ -4,35 +4,49 @@ using UnityEngine;
 namespace AI.Enemy
 {
     public sealed class EnemyAIParameters {
+
+        public float BaitVisDist = 10.0f;
+        public float BaitSpeedMultiplayer = 4.0f;
+
+        public float BurnSpeedMultiplayer = 6.0f;
+
+        public float FearMinTime = 1.0f;
+        public float FearMinDist = 8.0f;
+        public float FearMaxDist = 10.0f;
+        public float FearSpeedMultiplayer = 6.0f;
+
+        public float ChaseVisAngle = 20.0f;
+        public float ChaseSpeedMultiplayer = 2.5f;
+        public float FromChaseToIdleChance = 0.05f;
+
+        public float MinEatingTime = 0.3f;
+        public float EatingMinRingDistance = 4.0f;
+        public float EatingMaxRingDistance = 7.0f;
+        public float EatingSpeedMultiplayer = 0.5f;
+
+        public float EnteringRange = 8.0f;
+        public float MinEnteringTime = 2.5f;
+        public float EnteringHearDist = 8.0f;
+        public float EnteringRemainingDistance = 0.5f;
+
+        public float IdlingTime = 1.5f;
+
+        public float StarvingSpeedMultiplayer = 5.5f;
+        public float StarvationTriggerTime = 6.0f;
+
+        public float MinWanderingTime = 3.0f;
+        public float WanderRemainingDis = 1.0f;
+        public float WanderMinRingDistance = 5.0f;
+        public float WanderMaxRingDistance = 10.0f;
+        public float FromWanderToIdleChance = 0.005f;
         
-        public float normalHearDist = 12.0f;
-        public float normalVisDist = 8.0f;
-        public float normalStealDist = 1.0f;
+        public float NormalVisDist = 8.0f;
+        public float NormalHearDist = 12.0f;
+        public float NormalVisAngle = 40.0f;
 
-        public float normalVisAngle = 40.0f;
-        public float chaseVisAngle = 20.0f;
-
-        // public float walkingSpeed = 2.0f;
-        public float eatingSpeedMultiplayer = 0.5f;
-        public float chaseSpeedMultiplayer = 2.0f;
-
-        public float eatingRange = 2.5f;
-        public float enteringRange = 5.0f;
-        public float wanderingRange = 5.0f;
-
-        public float idlingTime = 1.5f;
-        public float eatingTime = 5.0f;
-        public float enteringTime = 2.0f;
-        public float wanderingTime = 3.0f;
-
-        public float enteringRemainingDis = 2.0f;
-        public float wanderingRemainingDis = 0.5f;
-
-        public float normalRotationSpeed = 1.5f;
-        public float chaseRotationSpeed = 3.0f;
-
-        public float fromWanderToIdleChance = 0.01f;
-        public float fromChaseToWanderChance = 0.05f;
+        public float SLowRotationSpeed = 1.0f;
+        public float NormalRotationSpeed = 1.5f;
+        public float FastRotationSpeed = 3.5f;
 
         private static readonly EnemyAIParameters instance = new EnemyAIParameters();
 

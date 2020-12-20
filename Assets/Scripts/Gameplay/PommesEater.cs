@@ -239,5 +239,10 @@ namespace Gameplay
         /// <param name="amount"></param>
         /// <returns></returns>
         public bool CanHold(int amount) => PommesCapacity + HotSaucePommesCapacity + amount <= MaxPommesCapacity;
+
+        public float GetTimeUntilDeath()
+        {
+            return DeathClock - eatingTimer;
+        }
     }
 }

@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
+using Gameplay.Ailments;
 using Gameplay.Characters;
+using System.Collections.Generic;
 
 namespace AI.Enemy.States
 {
@@ -8,7 +10,7 @@ namespace AI.Enemy.States
     {
         public enum STATE
         {
-            IDLE, CHASE, EATING, WANDER, ENTER, BAIT, BURN, FEAR, HAPPY, STARVING
+            IDLE, CHASE, EATING, WANDER, ENTER, BAIT, FEAR, STARVING
         };
 
         public enum EVENT
@@ -24,8 +26,8 @@ namespace AI.Enemy.States
         protected GameObject enemy;
         // To store the Animator component
         protected Animator anim;
-        // To store the transform of the player
-        protected Transform player;
+        // To store the player game object
+        protected GameObject player;
         // The state that gets to run after the one currently running
         protected EnemyState nextState;
         // To store the enemy NavMeshAgent component
@@ -34,15 +36,14 @@ namespace AI.Enemy.States
         protected EnemyCharacter enemyCharacter;
         // Stores AI related parameters
         protected EnemyAIParameters aiParameters;
-        // Shared context for tracking ailments
-        protected AilmentContext ailmentContext;
 
         protected float visDist;
-        protected float stealDist;
         protected float hearDist;
         protected float visAngle;
 
-        public EnemyState(GameObject _enemy, NavMeshAgent _agent, Animator _anim, Transform _player, EnemyCharacter _enemyCharacter)
+        protected ICharacter playerCharacter;
+
+        public EnemyState(GameObject _enemy, NavMeshAgent _agent, Animator _anim, GameObject _player, EnemyCharacter _enemyCharacter)
         {
             enemy = _enemy;
             agent = _agent;
@@ -50,20 +51,13 @@ namespace AI.Enemy.States
             player = _player;
             enemyCharacter = _enemyCharacter;
 
-            // if(_ailmentContext != null)
-            //     ailmentContext = _ailmentContext;
-            // else
-            //     ailmentContext = new AilmentContext();
-
+            playerCharacter = player.GetComponent<ICharacter>();
             aiParameters = enemyCharacter.aiParameters;
 
-            visDist = aiParameters.normalVisDist;
-            stealDist = aiParameters.normalStealDist;
-            hearDist = aiParameters.normalHearDist;
-            visAngle = aiParameters.normalVisAngle;
+            visDist = aiParameters.NormalVisDist;
+            hearDist = aiParameters.NormalHearDist;
+            visAngle = aiParameters.NormalVisAngle;
         }
-
-        // enemyCharacter.AilmentHandler.onAilmentInflict += NazivMetodeUnutarAI;
 
         public virtual void Enter() { stage = EVENT.UPDATE; }
         public virtual void Update() { stage = EVENT.UPDATE; }
@@ -83,7 +77,7 @@ namespace AI.Enemy.States
 
         protected bool canHearPlayer()
         {
-            Vector3 direction = player.position - enemy.transform.position;
+            Vector3 direction = player.transform.position - enemy.transform.position;
 
             if(direction.magnitude <= hearDist) {
                 return true;
@@ -91,31 +85,25 @@ namespace AI.Enemy.States
             return false;
         }
 
-        protected void turnTowardsPlayer(float rotationSpeed)
+        protected void turnXTowardsY(GameObject x, GameObject y, float rotationSpeed)
         {
-            Vector3 direction = (player.position - enemy.transform.position).normalized;
+            Vector3 direction = (y.transform.position - x.transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(direction);
 
-            enemy.transform.rotation = Quaternion.Slerp(enemy.transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+            x.transform.rotation = Quaternion.Slerp(x.transform.rotation, lookRotation, Time.deltaTime * rotationSpeed);
+        }
+
+        protected void turnTowardsPlayer(float rotationSpeed)
+        {
+            turnXTowardsY(enemy, player, rotationSpeed);
         }
 
         protected bool CanSeePlayer()
         {
-            Vector3 direction = player.position - enemy.transform.position;
+            Vector3 direction = player.transform.position - enemy.transform.position;
             float angle = Vector3.Angle(direction, enemy.transform.forward);
 
             if(direction.magnitude < visDist && angle < visAngle)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        protected bool CanStealFries()
-        {
-            Vector3 direction = player.position - enemy.transform.position;
-
-            if(direction.magnitude < stealDist)
             {
                 return true;
             }
@@ -128,9 +116,64 @@ namespace AI.Enemy.States
             agent.SetDestination(enemy.transform.position + randomOffset); 
         }
 
+        protected void SetRandomDestinationFromRing(float minDist, float maxDist)
+        {
+            float x = Random.Range(minDist, maxDist);
+            if (RandomChance(50)) 
+            {
+                x *= -1;
+            }
+            float z = Random.Range(minDist, maxDist);
+            if (RandomChance(50))
+            {
+                z *= -1;
+            }
+
+            Vector3 randomOffset = new Vector3(x, 0f, z);
+            agent.SetDestination(enemy.transform.position + randomOffset);
+        }
+
         protected bool RandomChance(float chance)
         {
             return Random.Range(0, 100) < chance;
+        }
+
+        protected bool AreThereBaits()
+        {
+            return playerCharacter.GetBaits().Count != 0;
+        }
+
+        protected GameObject GetClosestBaitInRange()
+        {
+            List<GameObject> baits = playerCharacter.GetBaits();
+
+            GameObject closest = null;
+            float minDist = float.MaxValue;
+
+            foreach (var bait in baits)
+            {
+                Vector3 direction = enemy.transform.position - bait.transform.position;
+
+                if(direction.magnitude <= aiParameters.BaitVisDist && direction.magnitude < minDist)
+                {
+                    closest = bait;
+                    minDist = direction.magnitude;
+                }
+            }
+
+            return closest;
+        }
+
+        protected bool IsStarving()
+        {
+            // return false;
+            return enemyCharacter.GetTimeUntilDeath() <= aiParameters.StarvationTriggerTime;
+        }
+
+        protected EnemyState GetAilmentState()
+        {
+            Ailment active = enemyCharacter.GetActiveAilment();
+            return new StateAilmentFear(enemy, agent, anim, player, enemyCharacter, active);
         }
 
     }

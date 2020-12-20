@@ -21,7 +21,9 @@ namespace Gameplay.SceneObjects
         public int NumberOfPommes { get; private set; }
 
         private float cookingTimer;
-        private readonly string[] messages = { "Pommes is cooking!", "Almost ready!", "Come back later!" };
+        private readonly string[] messages = { "Pommes is cooking!", "Almost ready!", "Come back later!",
+                                               "It's currently Irish Famine in the kitchen :(",
+                                               "Pommes doesn't grow on trees, you know"};
 
         public FoodStand()
         {

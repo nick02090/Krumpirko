@@ -8,7 +8,7 @@ namespace AI.Enemy.States
     {
         private float startTime;
 
-        public StateWander(GameObject _enemy, NavMeshAgent _agent, Animator _anim, Transform _player, EnemyCharacter _enemyCharacter)
+        public StateWander(GameObject _enemy, NavMeshAgent _agent, Animator _anim, GameObject _player, EnemyCharacter _enemyCharacter)
                     : base(_enemy, _agent, _anim, _player, _enemyCharacter)
         {
             name = STATE.WANDER;
@@ -19,32 +19,51 @@ namespace AI.Enemy.States
             startTime = Time.time;
             agent.isStopped = false;
 
-            SetRandomDestination(-aiParameters.wanderingRange, aiParameters.wanderingRange);
+            SetRandomDestinationFromRing(aiParameters.WanderMinRingDistance, aiParameters.WanderMaxRingDistance);
 
             base.Enter();
         }
 
         public override void Update()
-        {
-            if(canHearPlayer())
+        {       
+            if (AreThereBaits()) 
             {
-                turnTowardsPlayer(aiParameters.normalRotationSpeed);
+                if (GetClosestBaitInRange() != null) 
+                {
+                    nextState = new StateBait(enemy, agent, anim, player, enemyCharacter);
+                    stage = EVENT.EXIT;
+                    return;
+                }
             }
-
-            if (CanSeePlayer())
+            
+            if (IsStarving()) {
+                    nextState = new StateStarving(enemy, agent, anim, player, enemyCharacter);
+                    stage = EVENT.EXIT;
+            }
+            else if (CanSeePlayer())
             {
                 nextState = new StateChase(enemy, agent, anim, player, enemyCharacter);
                 stage = EVENT.EXIT;
             }
-            else if (Time.time - startTime < aiParameters.wanderingTime && agent.remainingDistance < aiParameters.wanderingRemainingDis)
+            else 
             {
-                startTime = Time.time;
-                SetRandomDestination(-aiParameters.wanderingRange, aiParameters.wanderingRange);
-            }
-            else if(Time.time - startTime < aiParameters.wanderingTime && RandomChance(aiParameters.fromWanderToIdleChance))
-            {
-                nextState = new StateIdle(enemy, agent, anim, player, enemyCharacter);
-                stage = EVENT.EXIT;
+                if (canHearPlayer())
+                {
+                    turnTowardsPlayer(aiParameters.NormalRotationSpeed);
+                }
+
+                if (Time.time - startTime >= aiParameters.MinWanderingTime)
+                {
+                    if (RandomChance(aiParameters.FromWanderToIdleChance))
+                    {
+                        nextState = new StateIdle(enemy, agent, anim, player, enemyCharacter);
+                        stage = EVENT.EXIT;
+                    }
+                    else if (agent.remainingDistance < aiParameters.WanderRemainingDis)
+                    {
+                        SetRandomDestinationFromRing(aiParameters.WanderMinRingDistance, aiParameters.WanderMaxRingDistance);
+                    }
+                }
             }
         }
 

@@ -332,6 +332,11 @@ namespace Gameplay.Characters
         {
             return pommesEater.HotSaucePommesCapacity;
         }
+        
+        public float GetTimeUntilDeath()
+        {
+            return pommesEater.GetTimeUntilDeath();
+        }
         #endregion
     }
 }

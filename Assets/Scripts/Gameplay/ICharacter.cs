@@ -36,5 +36,6 @@ namespace Gameplay.Characters
         int GetPommesEatenCapacity();
         int GetGumCapacity();
         int GetHotSauceCapacity();
+        float GetTimeUntilDeath();
     }
 }
