@@ -32,5 +32,9 @@ namespace Gameplay.Characters
         List<GameObject> GetBaits();
         int GetCurrentScore();
         int GetScore(ScoreType scoreType);
+        int GetPommesCapacity();
+        int GetPommesEatenCapacity();
+        int GetGumCapacity();
+        int GetHotSauceCapacity();
     }
 }

@@ -312,6 +312,26 @@ namespace Gameplay.Characters
         {
             return ScoreSystem.GetScore(scoreType);
         }
+
+        public int GetPommesCapacity()
+        {
+            return pommesEater.PommesCapacity;
+        }
+
+        public int GetPommesEatenCapacity()
+        {
+            return pommesEater.PommesEatenCapacity;
+        }
+
+        public int GetGumCapacity()
+        {
+            return pommesEater.GumCapacity;
+        }
+
+        public int GetHotSauceCapacity()
+        {
+            return pommesEater.HotSaucePommesCapacity;
+        }
         #endregion
     }
 }

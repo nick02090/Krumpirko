@@ -250,6 +250,26 @@ namespace Gameplay.Characters
         {
             throw new System.NotImplementedException();
         }
+
+        public int GetPommesCapacity()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int GetPommesEatenCapacity()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int GetGumCapacity()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public int GetHotSauceCapacity()
+        {
+            throw new System.NotImplementedException();
+        }
         #endregion
     }
 }

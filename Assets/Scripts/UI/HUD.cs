@@ -7,6 +7,7 @@ public class HUD : MonoBehaviour
 {
     public Text ScoreText;
     public RectTransform Actions;
+    public RectTransform Capacities;
 
     private PlayerCharacter playerCharacter;
 
@@ -18,8 +19,10 @@ public class HUD : MonoBehaviour
 
     private void Update()
     {
+        // Update the score
         ScoreText.text = $"Score: {playerCharacter.GetCurrentScore()}";
 
+        // Update available actions
         for (int i = 0; i < Actions.childCount; i++)
         {
             Transform action = Actions.GetChild(i);
@@ -45,6 +48,30 @@ public class HUD : MonoBehaviour
                     break;
             }
         }
+
+        // Update capacities
+        for (int i = 0; i < Capacities.childCount; i++)
+        {
+            Transform capacity = Capacities.GetChild(i);
+            switch (capacity.name)
+            {
+                case "PommesCapacity":
+                    UpdateCapacityCounter(capacity, playerCharacter.GetPommesCapacity());
+                    break;
+                case "PommesEatenCapacity":
+                    UpdateCapacityCounter(capacity, playerCharacter.GetPommesEatenCapacity());
+                    break;
+                case "GumCapacity":
+                    UpdateCapacityCounter(capacity, playerCharacter.GetGumCapacity());
+                    break;
+                case "HotSauceCapacity":
+                    UpdateCapacityCounter(capacity, playerCharacter.GetHotSauceCapacity());
+                    break;
+                default:
+                    Debug.LogError("HUD::Invalid capacity name!");
+                    break;
+            }
+        }
     }
 
     private void UpdateActionIcon(Transform action, ActionType actionType)
@@ -58,5 +85,11 @@ public class HUD : MonoBehaviour
         {
             actionImage.color = new Color(0.5f, 0.5f, 0.5f);
         }
+    }
+
+    private void UpdateCapacityCounter(Transform capacity, int capacityValue)
+    {
+        Text capacityText = capacity.GetChild(1).GetComponent<Text>();
+        capacityText.text = $"{capacityValue}";
     }
 }

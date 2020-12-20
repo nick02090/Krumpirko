@@ -1611,12 +1611,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6341436684614232609}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1375111134 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5360201768869175123, guid: 5e97667112ee5a845bccaf479df52001,
-    type: 3}
-  m_PrefabInstance: {fileID: 1664447884}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1416472443
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2873,26 +2867,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4244457510333659231, guid: 3ca4aee7f1983e24181790a02ef856f1,
-        type: 3}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 1375111134}
-    - target: {fileID: 4244457510763822050, guid: 3ca4aee7f1983e24181790a02ef856f1,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4244457510763822050, guid: 3ca4aee7f1983e24181790a02ef856f1,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4244457510763822050, guid: 3ca4aee7f1983e24181790a02ef856f1,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ca4aee7f1983e24181790a02ef856f1, type: 3}
