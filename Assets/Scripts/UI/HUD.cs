@@ -89,7 +89,7 @@ public class HUD : MonoBehaviour
 
     private void UpdateCapacityCounter(Transform capacity, int capacityValue)
     {
-        Text capacityText = capacity.GetChild(1).GetComponent<Text>();
+        Text capacityText = capacity.GetChild(2).GetComponent<Text>();
         capacityText.text = $"{capacityValue}";
     }
 }
