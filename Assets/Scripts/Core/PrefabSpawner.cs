@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Core
 {
@@ -13,6 +14,8 @@ namespace Core
         private float startTime;
         private int spawnedPrefabs = 0;
 
+        private List<GameObject> objects;
+
         void Start()
         {
             startTime = Time.time + startTimeOffset;
@@ -21,16 +24,23 @@ namespace Core
             {
                 spawnigCapacity = int.MaxValue;
             }
+
+            objects = new List<GameObject>();
+            for (uint i = 0; i < spawnigCapacity; ++i)
+            {
+                Vector3 position = transform.position;
+                GameObject obj = Instantiate(prefab, position, Quaternion.identity);
+                obj.transform.SetParent(transform);
+                obj.SetActive(false);
+                objects.Add(obj);
+            }
         }
 
         void Update()
         {
             if (Time.time - startTime >= spawnPeriod && spawnedPrefabs < spawnigCapacity) 
             {
-                Vector3 position = transform.position;
-                GameObject obj = Instantiate(prefab, position, Quaternion.identity);
-                obj.transform.SetParent(transform);
-
+                objects[spawnedPrefabs].SetActive(true);
                 spawnedPrefabs++;
                 if (spawnedPrefabs > spawnigCapacity)
                 {
