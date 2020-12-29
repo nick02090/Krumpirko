@@ -2184,7 +2184,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1568419074}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1147532669}
@@ -2293,6 +2293,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 401781672, guid: 5e97667112ee5a845bccaf479df52001, type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 401781672, guid: 5e97667112ee5a845bccaf479df52001, type: 3}
+      propertyPath: m_Lens.NearClipPlane
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 401781673, guid: 5e97667112ee5a845bccaf479df52001, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2304,6 +2312,14 @@ PrefabInstance:
     - target: {fileID: 401781673, guid: 5e97667112ee5a845bccaf479df52001, type: 3}
       propertyPath: m_LocalPosition.z
       value: -8.838835
+      objectReference: {fileID: 0}
+    - target: {fileID: 963194227, guid: 5e97667112ee5a845bccaf479df52001, type: 3}
+      propertyPath: orthographic size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 963194227, guid: 5e97667112ee5a845bccaf479df52001, type: 3}
+      propertyPath: near clip plane
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 963194228, guid: 5e97667112ee5a845bccaf479df52001, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2345,6 +2361,11 @@ PrefabInstance:
       propertyPath: ActionMappings.KetchupParent
       value: 
       objectReference: {fileID: 661336324}
+    - target: {fileID: 5360201768869175083, guid: 5e97667112ee5a845bccaf479df52001,
+        type: 3}
+      propertyPath: ActionCosts.ActionMultiplier
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5360201768869175086, guid: 5e97667112ee5a845bccaf479df52001,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2353,7 +2374,7 @@ PrefabInstance:
     - target: {fileID: 5360201768869175086, guid: 5e97667112ee5a845bccaf479df52001,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 5360201768869175086, guid: 5e97667112ee5a845bccaf479df52001,
         type: 3}

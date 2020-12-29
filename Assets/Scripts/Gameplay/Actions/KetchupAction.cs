@@ -31,7 +31,7 @@ namespace Gameplay.Actions
             // Get player position
             Transform characterTransform = character.GetTransform();
             // Calculate ketchups position (in front of the player)
-            Vector3 ketchupPosition = characterTransform.position - (characterTransform.up * 0.96f);
+            Vector3 ketchupPosition = characterTransform.position - (characterTransform.up * 0.8f);
             // Create a ketchup
             GameObject ketchup = Object.Instantiate(KetchupPrefab, ketchupPosition, characterTransform.rotation);
             // Set ketchup in the list of ketchups
