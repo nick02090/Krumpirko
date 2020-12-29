@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EatingRate: 2
   DeathClock: 20
-  MaxPommesCapacity: 2
+  MaxPommesCapacity: 1
   EatsHotSauce: 1
   ShowCapacityChanges: 0
   PommesCapacity: 0
@@ -265,6 +265,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: d1786af92306a8b4ba77271380ca5e66,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7d7c31d89a33ca24f905c25cd05f281c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1786af92306a8b4ba77271380ca5e66, type: 3}
 --- !u!4 &5728667933454747742 stripped

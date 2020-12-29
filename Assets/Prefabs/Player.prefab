@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3121e5c9d310dde4184682ea50cdf425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 5
+  MovementSpeed: 6
   RotationSpeed: 180
   ActionCosts:
     BaitActionCost: 10
@@ -308,6 +308,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Krumpirko
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: c859970958ad73941a887b81fb2538e0,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5180842a9c2cbd94a872ec231fba61fc, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c859970958ad73941a887b81fb2538e0, type: 3}
 --- !u!4 &2242051507504102823 stripped
