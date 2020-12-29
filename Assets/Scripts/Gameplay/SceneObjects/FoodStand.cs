@@ -13,6 +13,8 @@ namespace Gameplay.SceneObjects
 
         public MessagePopup MessagePopup;
 
+        public GameObject modelPrefab;
+
         private UnityEngine.UI.Text timerText;
         private GameObject pommes;
         private ParticleSystem steam;
@@ -111,6 +113,11 @@ namespace Gameplay.SceneObjects
         public override bool IsPickable()
         {
             return true;
+        }
+
+        public override MeshRenderer GetRenderer()
+        {
+            return modelPrefab.GetComponent<MeshRenderer>();
         }
     }
 }

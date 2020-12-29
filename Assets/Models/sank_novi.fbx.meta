@@ -3,7 +3,17 @@ guid: 4f0c8ddba611efd4989cc977e33a8ecb
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal_sank
+    second: {fileID: 2100000, guid: 5fbc69c643a397c44bb6bc4bed5cd928, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: podnozje_sank
+    second: {fileID: 2100000, guid: f04fd42104595b54bb82ea60fd4ef009, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

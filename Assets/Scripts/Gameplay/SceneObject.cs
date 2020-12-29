@@ -16,18 +16,28 @@ namespace Gameplay.SceneObjects
         /// </summary>
         public void ShowHighlight()
         {
-            GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+            foreach (Material material in GetRenderer().materials)
+            {
+                material.EnableKeyword("_EMISSION");
+            }
         }
         /// <summary>
         /// Disable the highlight of the object.
         /// </summary>
         public void HideHighlight()
         {
-            GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
+            foreach (Material material in GetRenderer().materials)
+            {
+                material.DisableKeyword("_EMISSION");
+            }
         }
         public virtual bool IsPickable()
         {
             return false;
+        }
+        public virtual MeshRenderer GetRenderer()
+        {
+            return GetComponent<MeshRenderer>();
         }
     }
 }
