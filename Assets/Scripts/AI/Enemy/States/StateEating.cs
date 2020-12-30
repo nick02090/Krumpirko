@@ -31,13 +31,13 @@ namespace AI.Enemy.States
 
         public override void Update()
         {
-            if (enemyCharacter.IsAilmentActive())
-            {
-                nextState = GetAilmentState();
-                stage = EVENT.EXIT;
-            }
-            else
-            {            
+            // if (enemyCharacter.IsAilmentActive())
+            // {
+            //     nextState = GetAilmentState();
+            //     stage = EVENT.EXIT;
+            // }
+            // else
+            // {            
                 agent.speed = enemyCharacter.GetMovementSpeed() * aiParameters.EatingSpeedMultiplayer;
 
                 if (Time.time - startTime > eatingTime)
@@ -45,7 +45,7 @@ namespace AI.Enemy.States
                     nextState = new StateIdle(enemy, agent, anim, player, enemyCharacter);
                     stage = EVENT.EXIT;
                 }
-            }
+            // }
         }
 
         public override void Exit()

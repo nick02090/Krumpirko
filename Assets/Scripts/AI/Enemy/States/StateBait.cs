@@ -36,11 +36,11 @@ namespace AI.Enemy.States
                     nextState = new StateEating(enemy, agent, anim, player, enemyCharacter);
                     stage = EVENT.EXIT;
                 }
-                else if (agent.remainingDistance < 0.5f)
-                {
-                    nextState = new StateIdle(enemy, agent, anim, player, enemyCharacter);
-                    stage = EVENT.EXIT;
-                }
+                // else if (agent.remainingDistance < 0.5f)
+                // {
+                //     nextState = new StateIdle(enemy, agent, anim, player, enemyCharacter);
+                //     stage = EVENT.EXIT;
+                // }
             }
             else 
             {

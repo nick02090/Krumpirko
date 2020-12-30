@@ -51,11 +51,11 @@ namespace AI.Enemy.States
                     }
                 }
 
-                if (IsStarving()) {
-                        nextState = new StateStarving(enemy, agent, anim, player, enemyCharacter);
-                        stage = EVENT.EXIT;
-                }
-                else if (CanSeePlayer())
+                // if (IsStarving()) {
+                //         nextState = new StateStarving(enemy, agent, anim, player, enemyCharacter);
+                //         stage = EVENT.EXIT;
+                // } else
+                if (CanSeePlayer())
                 {
                     nextState = new StateChase(enemy, agent, anim, player, enemyCharacter);
                     stage = EVENT.EXIT;
