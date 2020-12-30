@@ -39,11 +39,6 @@ namespace AI.Enemy.States
                 nextState = GetAilmentState();
                 stage = EVENT.EXIT;
             }
-            // else if (!IsStarving())
-            // {
-            //     nextState = new StateIdle(enemy, agent, anim, player, enemyCharacter);
-            //     stage = EVENT.EXIT;
-            // }
             else if (enemyCharacter.GetLeftPommesCapacity() == 0)
             {
                 nextState = new StateEating(enemy, agent, anim, player, enemyCharacter);

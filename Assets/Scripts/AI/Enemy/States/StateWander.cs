@@ -47,10 +47,10 @@ namespace AI.Enemy.States
             }
             else 
             {
-                if (canHearPlayer())
-                {
-                    turnTowardsPlayer(aiParameters.NormalRotationSpeed);
-                }
+                // if (canHearPlayer())
+                // {
+                //     turnTowardsPlayer(aiParameters.NormalRotationSpeed);
+                // }
 
                 if (Time.time - startTime >= aiParameters.MinWanderingTime)
                 {

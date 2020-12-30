@@ -28,7 +28,6 @@ namespace AI.Enemy.States
             {
                 if (GetClosestBaitInRange() != null) 
                 {
-                    // TODO slat bait kroz konstruktor
                     nextState = new StateBait(enemy, agent, anim, player, enemyCharacter);
                     stage = EVENT.EXIT;
                     return;
@@ -57,7 +56,6 @@ namespace AI.Enemy.States
 
         public override void Exit()
         {
-            // anim.ResetTrigger("isIdle");
             base.Exit();
         }
     }

@@ -51,7 +51,6 @@ namespace AI.Enemy.States
                 nextState = new StateEating(enemy, agent, anim, player, enemyCharacter);
                 stage = EVENT.EXIT;
             }
-            // TODO potencijalno problem
             else if (!CanSeePlayer() && RandomChance(aiParameters.FromChaseToIdleChance))
             {
                 nextState = new StateIdle(enemy, agent, anim, player, enemyCharacter);

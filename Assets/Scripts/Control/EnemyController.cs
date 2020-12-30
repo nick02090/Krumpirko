@@ -25,7 +25,8 @@ namespace Control
             ai = new FsmAI(startingState);
         }
 
-        void Update()
+        void FixedUpdate()
+        // void LateUpdate()
         {
             ai.Update();
         }
