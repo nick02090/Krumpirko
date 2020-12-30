@@ -3,7 +3,17 @@ guid: 4fbf4c9bcab6902488df964142a79786
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Drvo
+    second: {fileID: 2100000, guid: 088626333cc7df44990ebc18f180e1bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: noge
+    second: {fileID: 2100000, guid: 6734b030c4d2cc9418835e11f89f6f91, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

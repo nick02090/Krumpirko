@@ -417,12 +417,22 @@ PrefabInstance:
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: spawnigCapacity
-      value: 0
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: startTimeOffset
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
+        type: 3}
+      propertyPath: spawnPeriod
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
+        type: 3}
+      propertyPath: spawnPeriodDecay
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 762a8e57a0e0c644680b2763251cbc71, type: 3}
@@ -2027,7 +2037,22 @@ PrefabInstance:
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: spawnigCapacity
-      value: 0
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
+        type: 3}
+      propertyPath: spawnPeriod
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
+        type: 3}
+      propertyPath: startTimeOffset
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
+        type: 3}
+      propertyPath: spawnPeriodDecay
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 762a8e57a0e0c644680b2763251cbc71, type: 3}
@@ -2295,11 +2320,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 401781672, guid: 5e97667112ee5a845bccaf479df52001, type: 3}
       propertyPath: m_Lens.OrthographicSize
-      value: 6
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 401781672, guid: 5e97667112ee5a845bccaf479df52001, type: 3}
       propertyPath: m_Lens.NearClipPlane
-      value: 0
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 401781673, guid: 5e97667112ee5a845bccaf479df52001, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2315,7 +2340,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 963194227, guid: 5e97667112ee5a845bccaf479df52001, type: 3}
       propertyPath: orthographic size
-      value: 6
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 963194227, guid: 5e97667112ee5a845bccaf479df52001, type: 3}
       propertyPath: near clip plane
@@ -2340,6 +2365,14 @@ PrefabInstance:
     - target: {fileID: 963194228, guid: 5e97667112ee5a845bccaf479df52001, type: 3}
       propertyPath: m_LocalPosition.z
       value: -8.838835
+      objectReference: {fileID: 0}
+    - target: {fileID: 963194228, guid: 5e97667112ee5a845bccaf479df52001, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 963194228, guid: 5e97667112ee5a845bccaf479df52001, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4244457511324666248, guid: 5e97667112ee5a845bccaf479df52001,
         type: 3}
@@ -3413,12 +3446,17 @@ PrefabInstance:
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: spawnPeriod
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: spawnigCapacity
-      value: 1
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
+        type: 3}
+      propertyPath: startTimeOffset
+      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 762a8e57a0e0c644680b2763251cbc71, type: 3}
