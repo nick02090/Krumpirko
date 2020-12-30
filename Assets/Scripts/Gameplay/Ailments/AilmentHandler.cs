@@ -23,7 +23,7 @@ namespace Gameplay.Ailments
             Ailments = new List<Ailment>();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             for (int i = Ailments.Count - 1; i >= 0; i--)
             {

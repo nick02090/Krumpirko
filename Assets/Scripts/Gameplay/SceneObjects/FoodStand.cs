@@ -84,7 +84,7 @@ namespace Gameplay.SceneObjects
             return NumberOfPommes > 0;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             // Calculate elapsed time from last frame (seconds)
             cookingTimer += Time.deltaTime;

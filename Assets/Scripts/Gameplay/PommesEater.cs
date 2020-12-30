@@ -87,7 +87,7 @@ namespace Gameplay
             messagePopup.ShowMessage = ShowCapacityChanges;
         }
 
-        public void Update()
+        public void FixedUpdate()
         {
             // Calculate elapsed time from last frame (seconds)
             eatingTimer += Time.deltaTime;
