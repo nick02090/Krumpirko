@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
@@ -31,7 +29,18 @@ public class MainMenu : MonoBehaviour
 
     private void Play()
     {
-        SceneManager.LoadScene("SampleScene");
+        if (_selectedLevel == 1)
+        {
+            SceneManager.LoadScene("level1");
+        } 
+        else if (_selectedLevel == 2)
+        {
+            SceneManager.LoadScene("level2");
+        }
+        else
+        {
+            SceneManager.LoadScene("level3");
+        }
     }
 
     public void QuitGame()
