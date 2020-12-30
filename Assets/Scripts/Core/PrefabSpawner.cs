@@ -8,6 +8,7 @@ namespace Core
         public GameObject prefab;
         public float spawnPeriod;
         public int spawnigCapacity;
+        public int maxCurrentNumber;
         public float startTimeOffset = 0f;
         public float spawnPeriodDecay = 1f;
 
@@ -38,7 +39,9 @@ namespace Core
 
         void Update()
         {
-            if (Time.time - startTime >= spawnPeriod && spawnedPrefabs < spawnigCapacity) 
+            if (Time.time - startTime >= spawnPeriod && 
+                spawnedPrefabs < spawnigCapacity && 
+                GetActiveChildCount() < maxCurrentNumber) 
             {
                 objects[spawnedPrefabs].SetActive(true);
                 spawnedPrefabs++;
@@ -50,6 +53,19 @@ namespace Core
                 spawnPeriod *= spawnPeriodDecay;
                 startTime = Time.time;
             }        
+        }
+
+        private int GetActiveChildCount()
+        {
+            int count = 0;
+            foreach (Transform child in transform)
+            {
+                if (child.gameObject.activeInHierarchy)
+                {
+                    ++count;
+                }
+            }
+            return count;
         }
 
         void OnDrawGizmos() {

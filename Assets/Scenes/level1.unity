@@ -2043,7 +2043,7 @@ PrefabInstance:
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: spawnigCapacity
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
@@ -2053,12 +2053,17 @@ PrefabInstance:
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: spawnPeriod
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: startTimeOffset
-      value: -10
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
+        type: 3}
+      propertyPath: maxCurrentNumber
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 762a8e57a0e0c644680b2763251cbc71, type: 3}
@@ -5826,22 +5831,27 @@ PrefabInstance:
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: spawnigCapacity
-      value: 20
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: spawnPeriodDecay
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: startTimeOffset
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: spawnPeriod
-      value: 5
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
+        type: 3}
+      propertyPath: maxCurrentNumber
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 762a8e57a0e0c644680b2763251cbc71, type: 3}
@@ -10026,22 +10036,27 @@ PrefabInstance:
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: spawnigCapacity
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: spawnPeriodDecay
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: startTimeOffset
-      value: 15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
         type: 3}
       propertyPath: spawnPeriod
-      value: 5
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341436683613511519, guid: 762a8e57a0e0c644680b2763251cbc71,
+        type: 3}
+      propertyPath: maxCurrentNumber
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 762a8e57a0e0c644680b2763251cbc71, type: 3}

@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EatingRate: 2
-  DeathClock: 10
+  DeathClock: 15
   MaxPommesCapacity: 1
   EatsHotSauce: 1
   ShowCapacityChanges: 0
