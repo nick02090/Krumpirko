@@ -17,7 +17,9 @@ Once installed add the project root folder (this one) via the Unity Hub and wait
 
 ## Release
 
-*Add a release link once the game is finished*
+- Download executable file from here: https://drive.google.com/file/d/15C4k4Upouh4nss5v4ZgPYSgvuIg7IxuU/view?usp=sharing (Windows only)
+  1) Unzip the Krumpirko folder
+  2) Run Krumpirko.exe
 
 ## Teammates
 
