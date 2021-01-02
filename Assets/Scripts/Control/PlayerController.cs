@@ -2,14 +2,17 @@
 using UnityEngine;
 using Gameplay.Characters;
 using Gameplay.Actions;
-using Core;
 using Gameplay.SceneObjects;
+using System.Collections;
 
 namespace Control
 {
     [RequireComponent(typeof(PlayerCharacter))]
     public class PlayerController : MonoBehaviour
     {
+        public delegate IEnumerator InvalidAction(ActionType actionType);
+        public InvalidAction onInvalidAction;
+
         /// <summary>
         /// Holds the information about the player.
         /// </summary>
@@ -59,8 +62,8 @@ namespace Control
                             // Player can't execute this action due to unsuficient pommes
                             if (!playerCharacter.CanExecuteAction(actionType))
                             {
-                                // TODO: Print a warning message on screen that this action is not available!
-                                Debug.LogWarning($"{actionType.DescriptionAttr()} can't be executed due to unsufficient pommes");
+                                // Invoke the subscribers when action can't be executed
+                                StartCoroutine(onInvalidAction?.Invoke(actionType));
                                 break;
                             }
                             else

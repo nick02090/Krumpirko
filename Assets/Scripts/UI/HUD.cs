@@ -1,20 +1,29 @@
-﻿using Gameplay.Actions;
+﻿using Control;
+using Gameplay.Actions;
 using Gameplay.Characters;
 using UnityEngine;
 using UnityEngine.UI;
+using Core;
+using System.Collections;
 
 public class HUD : MonoBehaviour
 {
     public Text ScoreText;
+    public Text ActionText;
+    public Text Timer;
     public RectTransform Actions;
     public RectTransform Capacities;
 
     private PlayerCharacter playerCharacter;
+    private PlayerController playerController;
 
     private void Start()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         playerCharacter = player.GetComponent<PlayerCharacter>();
+        playerController = player.GetComponent<PlayerController>();
+        playerController.onInvalidAction += OnInvalidAction;
+        ActionText.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -72,6 +81,27 @@ public class HUD : MonoBehaviour
                     break;
             }
         }
+
+        // Update timer
+        int remainingTime = (int)Mathf.Ceil(playerCharacter.GetTimeUntilDeath());
+        int deathClock = (int)Mathf.Ceil(playerCharacter.GetDeathClock());
+        // 70% above the life
+        if (remainingTime >= 0.7 * deathClock)
+        {
+            Timer.color = Color.green;
+        }
+        // 40% above the life
+        else if (remainingTime >= 0.4 * deathClock)
+        {
+            Timer.color = Color.yellow;
+        }
+        // below 40% of the life
+        else
+        {
+            Timer.color = Color.red;
+        }
+        Timer.text = $"{Mathf.Ceil(playerCharacter.GetTimeUntilDeath())}s";
+
     }
 
     private void UpdateActionIcon(Transform action, ActionType actionType)
@@ -91,5 +121,13 @@ public class HUD : MonoBehaviour
     {
         Text capacityText = capacity.GetChild(2).GetComponent<Text>();
         capacityText.text = $"{capacityValue}";
+    }
+
+    private IEnumerator OnInvalidAction(ActionType actionType)
+    {
+        ActionText.gameObject.SetActive(true);
+        ActionText.text = $"Unsufficient pommes to execute {actionType.DescriptionAttr()} action!";
+        yield return new WaitForSeconds(2);
+        ActionText.gameObject.SetActive(false);
     }
 }

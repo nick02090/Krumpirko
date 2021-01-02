@@ -3,6 +3,7 @@ using Gameplay.Ailments;
 using Gameplay.Actions;
 using Gameplay.SceneObjects;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 namespace Gameplay.Characters
 {
@@ -147,8 +148,8 @@ namespace Gameplay.Characters
         /// </summary>
         private void OnEaterDeath()
         {
-            // TODO: Update player properties so they math the current eater state.
-            //Debug.Log($"Player eater has died.");
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("MainMenu");
         }
 
         /// <summary>
